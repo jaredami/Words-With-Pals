@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Tile from './Tile';
 
 const StyledGameBoard = styled.div`
-  border: 4px solid #ffffff;
+  border: 4px solid ${props => props.theme.gameBoard};
   display: grid;
   grid-template-columns: repeat(15, 35px);
   height: 525px;
