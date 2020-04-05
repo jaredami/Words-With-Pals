@@ -1,19 +1,22 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import Letter from './Letter';
 
-const shelfStyles = {
-  'width': '525px',
+const shelfStyles: CSSProperties = {
+  'display': 'grid',
+  'gridColumnGap': '8px',
+  'gridTemplateColumns': 'repeat(7, 1fr)',
   'height': '70px',
   'margin': '0 auto',
-  'display': 'grid',
-  'grid-template-columns': 'repeat(7, 1fr)',
-  'grid-column-gap': '8px',
+  'width': '525px',
 }
+
+const letters: string[] = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
 
 function Shelf() {
   return (
     <div style={ shelfStyles }>
-      {Array(7).fill(<Letter />)}
+      {/* { Array(7).fill(<Letter />) } */}
+      { letters.map((value: string, index: number) => <Letter value={ value } key={ index }/> )}
     </div>
   );
 }

@@ -1,17 +1,18 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 
-const tileStyles = {
-  'box-sizing': 'border-box',
-  'border': '2px solid #ffffff',
-  'border-radius': '6px',
-  'height': '35px',
-  'box-shadow': 'inset 0px 5px 10px rgba(0, 0, 0, 0.2)',
+const tileStyles: CSSProperties = {
   'background': '#eeecea',
+  'border': '2px solid #ffffff',
+  'borderRadius': '6px',
+  'boxShadow': 'inset 0px 5px 10px rgba(0, 0, 0, 0.2)',
+  'boxSizing': 'border-box',
+  'height': '35px',
 }
 
-function GameBoard() {
+function GameBoard(props: { type: string }) {
   return (
     <div style={ tileStyles }>
+      { props.type }
     </div>
   );
 }

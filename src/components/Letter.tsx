@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 
-const letterStyles = {
-  'box-sizing': 'border-box',
-  'box-shadow': 'inset 0px 5px 10px rgba(0, 0, 0, 0.2)',
-  'border-radius': '8px',
+const letterStyles: CSSProperties = {
   'background': '#fbb24e',
+  'borderRadius': '8px',
+  'boxShadow': 'inset 0px 5px 10px rgba(0, 0, 0, 0.2)',
+  'boxSizing': 'border-box',
 }
 
-function Letter() {
+function Letter(props: { value: string }) {
   return (
     <div style={ letterStyles }>
+      { props.value }
     </div>
   );
 }
