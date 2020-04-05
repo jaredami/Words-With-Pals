@@ -25,7 +25,9 @@ const StyledTile = styled.div`
   border-radius: 6px;
   box-shadow: inset 0px 5px 10px rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
+  color: #f5f5f5;
   height: 35px;
+  line-height: 30px;
 `
 
 const gameBoard: (tileTypes | '')[][] = [
@@ -51,7 +53,11 @@ function GameBoard() {
   gameBoard.forEach((rowArr: (tileTypes | '')[]) => {
     tiles.push(
       rowArr.map((tileType: (tileTypes | ''), index: number) =>
-        <StyledTile key={ index } type={ tileType } />
+        <StyledTile key={ index } type={ tileType }>
+          <span>
+            { tileType }
+          </span>
+        </StyledTile>
       )
     );
   });

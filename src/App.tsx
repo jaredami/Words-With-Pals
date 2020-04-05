@@ -15,11 +15,11 @@ export interface MyTheme {
 const theme: MyTheme = {
   gameBoard: '#ffffff',
   tileTypes: {
-    TW: 'yellow',
-    DW: 'red',
-    TL: 'green',
-    DL: 'blue',
-    X: 'black'
+    TW: '#E79F45',
+    DW: '#C86058',
+    TL: '#6EA055',
+    DL: '#138CCE',
+    X: '#353535'
   },
   letters: '#fbb24e'
 }
