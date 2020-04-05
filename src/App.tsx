@@ -4,9 +4,23 @@ import './App.scss';
 import GameBoard from './components/GameBoard';
 import Shelf from './components/Shelf';
 
-const theme = {
-  tiles: '#eeecea',
+export type tileTypes = 'TW' | 'DW' | 'TL' | 'DL' | 'X';
+
+export interface MyTheme {
+  gameBoard: string,
+  tileTypes: { [k in tileTypes]: string }
+  letters: string
+}
+
+const theme: MyTheme = {
   gameBoard: '#ffffff',
+  tileTypes: {
+    TW: 'yellow',
+    DW: 'red',
+    TL: 'green',
+    DL: 'blue',
+    X: 'black'
+  },
   letters: '#fbb24e'
 }
 

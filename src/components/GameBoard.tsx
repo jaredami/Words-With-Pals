@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Tile from './Tile';
+import { MyTheme, tileTypes } from '../App';
 
 const StyledGameBoard = styled.div`
   border: 4px solid ${props => props.theme.gameBoard};
@@ -11,7 +11,24 @@ const StyledGameBoard = styled.div`
   width: 525px;
 `;
 
-const gameBoard: string[][] = [
+const StyledTile = styled.div`
+  background: ${(props: {
+      type: tileTypes | '',
+      theme: MyTheme
+    }): string => {
+      if (props.type === '') {
+        return '#eeecea'
+      }
+      return props.theme.tileTypes[props.type];
+    }};
+  border: 2px solid ${props => props.theme.gameBoard};
+  border-radius: 6px;
+  box-shadow: inset 0px 5px 10px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  height: 35px;
+`
+
+const gameBoard: (tileTypes | '')[][] = [
   ['', '', '', 'TW', '', '', 'TL', '', 'TL', '', '', 'TW', '', '', ''],
   ['', '', 'DL', '', '', 'DW', '', '', '', 'DW', '', '', 'DL', '', ''],
   ['', 'DL', '', '', 'DL', '', '', '', '', '', 'DL', '', '', 'DL', ''],
@@ -31,10 +48,10 @@ const gameBoard: string[][] = [
 
 function GameBoard() {
   let tiles: JSX.Element[][] = [];
-  gameBoard.forEach((rowArr: string[]) => {
+  gameBoard.forEach((rowArr: (tileTypes | '')[]) => {
     tiles.push(
-      rowArr.map((tileType: string, index: number) =>
-        <Tile key={ index } type={ tileType } />
+      rowArr.map((tileType: (tileTypes | ''), index: number) =>
+        <StyledTile key={ index } type={ tileType } />
       )
     );
   });
