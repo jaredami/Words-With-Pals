@@ -26,6 +26,7 @@ const StyledTile = styled.div`
   box-shadow: inset 0px 5px 10px rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
   color: #f5f5f5;
+  font-weight: 600;
   height: 35px;
   line-height: 30px;
 `
