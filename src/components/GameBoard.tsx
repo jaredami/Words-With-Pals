@@ -1,14 +1,15 @@
-import React, { CSSProperties } from 'react';
+import React from 'react';
+import styled from 'styled-components';
 import Tile from './Tile';
 
-const gameBoardStyles: CSSProperties = {
-  'border': '4px solid #ffffff',
-  'display': 'grid',
-  'gridTemplateColumns': 'repeat(15, 35px)',
-  'height': '525px',
-  'margin': '0 auto',
-  'width': '525px',
-}
+const StyledGameBoard = styled.div`
+  border: 4px solid #ffffff;
+  display: grid;
+  grid-template-columns: repeat(15, 35px);
+  height: 525px;
+  margin: 0 auto;
+  width: 525px;
+`;
 
 const gameBoard: string[][] = [
   ['', '', '', 'TW', '', '', 'TL', '', 'TL', '', '', 'TW', '', '', ''],
@@ -39,9 +40,7 @@ function GameBoard() {
   });
 
   return (
-    <div style={ gameBoardStyles }>
-      { tiles }
-    </div>
+    <StyledGameBoard>{ tiles }</StyledGameBoard>
   );
 }
 
