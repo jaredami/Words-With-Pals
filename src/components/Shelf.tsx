@@ -2,6 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import Letter from './Letter';
 
+interface LetterPiece {
+  val: string;
+  points: number;
+}
+
 const StyledShelf = styled.div`
   display: grid;
   grid-column-gap: 8px;
@@ -11,12 +16,26 @@ const StyledShelf = styled.div`
   width: 525px;
 `;
 
-const letters: string[] = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+const letterPieces: LetterPiece[] = [
+  { val: 'A', points: 1 },
+  { val: 'B', points: 4 },
+  { val: 'C', points: 4 },
+  { val: 'D', points: 2 },
+  { val: 'E', points: 1 },
+  { val: 'F', points: 4 },
+  { val: 'G', points: 3 },
+];
 
 function Shelf() {
   return (
     <StyledShelf>
-      { letters.map((value: string, index: number) => <Letter value={ value } key={ index }/> )}
+      {
+        letterPieces.map((piece: LetterPiece, index: number) => {
+          return <Letter value={ piece.val }
+                         points={ piece.points }
+                         key={ index }/>
+        })
+      }
     </StyledShelf>
   );
 }

@@ -9,12 +9,26 @@ const StyledLetter = styled.div`
   color: #4C1900;
   font-size: 3.5rem;
   font-weight: 700;
-  line-height: 75px;
+  display: flex;
+	justify-content: center;
+	align-items: center;
+  position: relative;
+  .points {
+    font-size: 0.8rem;
+    position: absolute;
+    top: 5%;
+    right: 10%;
+  }
 `;
 
-function Letter(props: { value: string }) {
+function Letter(props: { value: string, points: number }) {
   return (
-    <StyledLetter>{ props.value }</StyledLetter>
+    <StyledLetter>
+      { props.value }
+      <span className="points">
+        { props.points }
+      </span>
+    </StyledLetter>
   );
 }
 
