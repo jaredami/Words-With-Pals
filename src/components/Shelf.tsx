@@ -29,13 +29,11 @@ const letterPieces: LetterPiece[] = [
 function Shelf() {
   return (
     <StyledShelf>
-      {
-        letterPieces.map((piece: LetterPiece, index: number) => {
-          return <Letter value={ piece.val }
-                         points={ piece.points }
-                         key={ index }/>
-        })
-      }
+      {letterPieces.map((piece: LetterPiece, index: number) =>
+          <Letter value={ piece.val }
+                  points={ piece.points }
+                  key={ index }/>
+      )}
     </StyledShelf>
   );
 }

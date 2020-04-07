@@ -4,11 +4,11 @@ import './App.scss';
 import GameBoard from './components/GameBoard';
 import Shelf from './components/Shelf';
 
-export type tileTypes = 'TW' | 'DW' | 'TL' | 'DL' | 'X';
+export type TileTypes = 'TW' | 'DW' | 'TL' | 'DL' | 'X';
 
 export interface MyTheme {
   gameBoard: string,
-  tileTypes: { [k in tileTypes]: string }
+  tileTypes: { [k in TileTypes]: string }
   letters: string
 }
 
