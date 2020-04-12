@@ -40,7 +40,10 @@ function GameBoard(props: GameBoardProps) {
   gameBoard.forEach((rowArr: (TileTypes | '')[]) => {
     tiles.push(
       rowArr.map((tileType: (TileTypes | ''), index: number) =>
-        <Tile key={ index } type={ tileType } theme={ props.theme } letter={ props.selectedLetter }></Tile>
+        <Tile key={ index }
+              type={ tileType }
+              theme={ props.theme }
+              letter={ props.selectedLetter } />
       )
     );
   });

@@ -3,14 +3,15 @@ import styled from 'styled-components';
 import { MyTheme } from '../App';
 
 interface LetterProps {
-  value: string;
   points: number;
-  selectLetter: any;
+  selectLetter: React.Dispatch<React.SetStateAction<string>>;
   theme: MyTheme;
+  value: string;
 }
 
 const StyledLetter = styled.button`
   background: ${props => props.theme.letters};
+  border: none;
   border-radius: 8px;
   box-shadow: inset 0px 5px 10px rgba(0, 0, 0, 0.2), 0px 5px 5px rgba(0, 0, 0, 0.5);
   box-sizing: border-box;

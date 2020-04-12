@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import Letter from './Letter';
 
 interface LetterPiece {
-  val: string;
   points: number;
+  val: string;
 }
 
 const StyledShelf = styled.div`
@@ -30,11 +30,11 @@ function Shelf(props: any) {
   return (
     <StyledShelf>
       {letterPieces.map((piece: LetterPiece, index: number) =>
-          <Letter value={ piece.val }
+          <Letter key={ index }
                   points={ piece.points }
-                  key={ index }
                   selectLetter={ props.selectLetter }
-                  theme= { props.theme }/>
+                  theme= { props.theme }
+                  value={ piece.val } />
       )}
     </StyledShelf>
   );

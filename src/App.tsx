@@ -7,13 +7,14 @@ import Shelf from './components/Shelf';
 export type TileTypes = 'TW' | 'DW' | 'TL' | 'DL' | 'X';
 
 export interface MyTheme {
-  gameBoard: string,
-  tileTypes: { [k in TileTypes]: string }
-  letters: string
+  gameBoard: string;
+  letters: string;
+  tileTypes: { [k in TileTypes]: string };
 }
 
 const theme: MyTheme = {
   gameBoard: '#ffffff',
+  letters: '#fbb24e',
   tileTypes: {
     TW: '#E79F45',
     DW: '#C86058',
@@ -21,16 +22,15 @@ const theme: MyTheme = {
     DL: '#138CCE',
     X: '#353535'
   },
-  letters: '#fbb24e'
 }
 
 function App() {
-  const [selectedLetter, setSelectedLetter] = useState('Z');
+  const [selectedLetter, setSelectedLetter] = useState('');
 
   return (
     <ThemeProvider theme={ theme }>
       <div className="App">
-        <GameBoard theme={ theme } selectedLetter={ selectedLetter }/>
+        <GameBoard theme={ theme } selectedLetter={ selectedLetter } />
         <Shelf selectLetter={ setSelectedLetter} />
       </div>
     </ThemeProvider>

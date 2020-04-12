@@ -3,9 +3,9 @@ import styled from "styled-components";
 import { MyTheme, TileTypes } from "../App";
 
 export interface TileProps {
-  theme: MyTheme,
-  type: TileTypes | '',
-  letter: string
+  letter: string;
+  theme: MyTheme;
+  type: TileTypes | '';
 }
 
 const StyledTile: any = styled.button<TileProps>`
@@ -33,8 +33,10 @@ function Tile(props: TileProps) {
   const [text, setText] = useState('');
   
   return (
-    <StyledTile type={ props.type } theme={ props.theme } onClick={() => setText(props.letter ? props.letter : '')}>
-    { text ? text : props.type }
+    <StyledTile type={ props.type }
+                theme={ props.theme }
+                onClick={() => setText(props.letter ? props.letter : '')}>
+      { text ? text : props.type }
     </StyledTile>
   );
 }
