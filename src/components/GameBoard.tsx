@@ -1,7 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { TileTypes } from '../App';
+import { MyTheme, TileTypes } from '../App';
 import Tile from './Tile';
+
+interface GameBoardProps {
+  letter: string;
+  theme: MyTheme;
+}
 
 const gameBoard: (TileTypes | '')[][] = [
   ['', '', '', 'TW', '', '', 'TL', '', 'TL', '', '', 'TW', '', '', ''],
@@ -30,7 +35,7 @@ const StyledGameBoard: any = styled.div`
   width: 525px;
 `;
 
-function GameBoard(props: any) {
+function GameBoard(props: GameBoardProps) {
   let tiles: JSX.Element[][] = [];
   gameBoard.forEach((rowArr: (TileTypes | '')[]) => {
     tiles.push(

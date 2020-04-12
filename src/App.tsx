@@ -27,10 +27,10 @@ const theme: MyTheme = {
 function App() {
   return (
     <ThemeProvider theme={ theme }>
-    <div className="App">
-      <GameBoard letter="Z"/>
-      <Shelf />
-    </div>
+      <div className="App">
+        <GameBoard theme={ theme } letter="Z"/>
+        <Shelf />
+      </div>
     </ThemeProvider>
   );
 }
