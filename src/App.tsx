@@ -28,7 +28,7 @@ function App() {
   return (
     <ThemeProvider theme={ theme }>
     <div className="App">
-      <GameBoard/>
+      <GameBoard letter="Z"/>
       <Shelf />
     </div>
     </ThemeProvider>

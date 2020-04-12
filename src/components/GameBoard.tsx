@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { MyTheme, TileTypes } from '../App';
 
-const StyledGameBoard = styled.div`
+const StyledGameBoard: any = styled.div`
   border: 4px solid ${props => props.theme.gameBoard};
   display: grid;
   grid-template-columns: repeat(15, 35px);
@@ -12,8 +12,9 @@ const StyledGameBoard = styled.div`
 `;
 
 interface TileProps {
+  theme: MyTheme,
   type: TileTypes | '',
-  theme: MyTheme
+  letter: string
 }
 
 const StyledTile: any = styled.button<TileProps>`
@@ -37,6 +38,17 @@ const StyledTile: any = styled.button<TileProps>`
   }
 `
 
+function Tile(props: TileProps) {
+  const [text, setText] = useState('');
+  
+  return (
+    <StyledTile type={ props.type } theme={ props.theme } onClick={() => setText(props.letter ? props.letter : '')}>
+    { text ? text : props.type }
+    </StyledTile>
+  );
+}
+  
+
 const gameBoard: (TileTypes | '')[][] = [
   ['', '', '', 'TW', '', '', 'TL', '', 'TL', '', '', 'TW', '', '', ''],
   ['', '', 'DL', '', '', 'DW', '', '', '', 'DW', '', '', 'DL', '', ''],
@@ -55,14 +67,12 @@ const gameBoard: (TileTypes | '')[][] = [
   ['', '', '', 'TW', '', '', 'TL', '', 'TL', '', '', 'TW', '', '', ''],
 ]
 
-function GameBoard() {
+function GameBoard(props: any) {
   let tiles: JSX.Element[][] = [];
   gameBoard.forEach((rowArr: (TileTypes | '')[]) => {
     tiles.push(
       rowArr.map((tileType: (TileTypes | ''), index: number) =>
-        <StyledTile key={ index } type={ tileType }>
-          { tileType }
-        </StyledTile>
+        <Tile key={ index } type={ tileType } theme={ props.theme } letter={ props.letter }></Tile>
       )
     );
   });
