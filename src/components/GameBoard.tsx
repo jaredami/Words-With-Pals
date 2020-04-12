@@ -1,53 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { MyTheme, TileTypes } from '../App';
-
-const StyledGameBoard: any = styled.div`
-  border: 4px solid ${props => props.theme.gameBoard};
-  display: grid;
-  grid-template-columns: repeat(15, 35px);
-  height: 525px;
-  margin: 0 auto;
-  width: 525px;
-`;
-
-interface TileProps {
-  theme: MyTheme,
-  type: TileTypes | '',
-  letter: string
-}
-
-const StyledTile: any = styled.button<TileProps>`
-  background: ${(props: TileProps): string => {
-      if (props.type === '') {
-        return '#eeecea'
-      }
-      return props.theme.tileTypes[props.type];
-    }};
-  border: 2px solid ${props => props.theme.gameBoard};
-  border-radius: 6px;
-  box-shadow: inset 0px 5px 10px rgba(0, 0, 0, 0.2);
-  box-sizing: border-box;
-  color: #f5f5f5;
-  font-weight: 600;
-  height: 35px;
-  line-height: 30px;
-  &:hover {
-    cursor: pointer;
-    filter: brightness(90%);
-  }
-`
-
-function Tile(props: TileProps) {
-  const [text, setText] = useState('');
-  
-  return (
-    <StyledTile type={ props.type } theme={ props.theme } onClick={() => setText(props.letter ? props.letter : '')}>
-    { text ? text : props.type }
-    </StyledTile>
-  );
-}
-  
+import { TileTypes } from '../App';
+import Tile from './Tile';
 
 const gameBoard: (TileTypes | '')[][] = [
   ['', '', '', 'TW', '', '', 'TL', '', 'TL', '', '', 'TW', '', '', ''],
@@ -66,6 +20,15 @@ const gameBoard: (TileTypes | '')[][] = [
   ['', '', 'DL', '', '', 'DW', '', '', '', 'DW', '', '', 'DL', '', ''],
   ['', '', '', 'TW', '', '', 'TL', '', 'TL', '', '', 'TW', '', '', ''],
 ]
+
+const StyledGameBoard: any = styled.div`
+  border: 4px solid ${props => props.theme.gameBoard};
+  display: grid;
+  grid-template-columns: repeat(15, 35px);
+  height: 525px;
+  margin: 0 auto;
+  width: 525px;
+`;
 
 function GameBoard(props: any) {
   let tiles: JSX.Element[][] = [];
