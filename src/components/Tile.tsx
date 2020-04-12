@@ -4,13 +4,16 @@ import { MyTheme, TileTypes } from "../App";
 
 export interface TileProps {
   letter: string;
+  text?: string;
   theme: MyTheme;
   type: TileTypes | '';
 }
 
 const StyledTile: any = styled.button<TileProps>`
   background: ${(props: TileProps): string => {
-      if (props.type === '') {
+      if (props.text) {
+        return props.theme.letters
+      } else if (props.type === '') {
         return '#eeecea'
       }
       return props.theme.tileTypes[props.type];
@@ -19,7 +22,7 @@ const StyledTile: any = styled.button<TileProps>`
   border-radius: 6px;
   box-shadow: inset 0px 5px 10px rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
-  color: #f5f5f5;
+  color: ${(props: TileProps): string => props.text ? 'black' : 'white' };
   font-weight: 600;
   height: 35px;
   line-height: 30px;
@@ -33,7 +36,8 @@ function Tile(props: TileProps) {
   const [text, setText] = useState('');
   
   return (
-    <StyledTile type={ props.type }
+    <StyledTile text={ text }
+                type={ props.type }
                 theme={ props.theme }
                 onClick={() => setText(props.letter ? props.letter : '')}>
       { text ? text : props.type }
