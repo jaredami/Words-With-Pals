@@ -4,7 +4,7 @@ import { MyTheme } from '../App';
 
 interface LetterProps {
   points: number;
-  selectLetter: React.Dispatch<React.SetStateAction<string>>;
+  setSelectedLetter: React.Dispatch<React.SetStateAction<string>>;
   theme: MyTheme;
   value: string;
 }
@@ -37,9 +37,13 @@ const StyledLetter = styled.button`
   }
 `;
 
+// function letterClicked(): void {
+  
+// }
+
 function Letter(props: LetterProps) {
   return (
-    <StyledLetter onClick={() => props.selectLetter(props.value)}>
+    <StyledLetter onClick={() => props.setSelectedLetter(props.value)}>
       { props.value }
       <span className="points">
         { props.points }

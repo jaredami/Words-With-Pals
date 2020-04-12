@@ -4,6 +4,7 @@ import { MyTheme, TileTypes } from "../App";
 
 export interface TileProps {
   letter: string;
+  selecting: boolean;
   text?: string;
   theme: MyTheme;
   type: TileTypes | '';

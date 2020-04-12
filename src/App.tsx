@@ -26,12 +26,19 @@ const theme: MyTheme = {
 
 function App() {
   const [selectedLetter, setSelectedLetter] = useState('');
+  const [selecting, setSelecting] = useState(false);
 
   return (
     <ThemeProvider theme={ theme }>
       <div className="App">
-        <GameBoard theme={ theme } selectedLetter={ selectedLetter } />
-        <Shelf selectLetter={ setSelectedLetter} />
+        <GameBoard selectedLetter={ selectedLetter }
+                   selecting={ selecting }
+                   setSelecting={ setSelecting }
+                   theme={ theme } />
+        <Shelf setSelectedLetter={ setSelectedLetter}
+               selecting={ selecting }
+               setSelecting={ setSelecting } 
+               theme={ theme } />
       </div>
     </ThemeProvider>
   );
