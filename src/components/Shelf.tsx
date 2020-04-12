@@ -26,13 +26,15 @@ const letterPieces: LetterPiece[] = [
   { val: 'G', points: 3 },
 ];
 
-function Shelf() {
+function Shelf(props: any) {
   return (
     <StyledShelf>
       {letterPieces.map((piece: LetterPiece, index: number) =>
           <Letter value={ piece.val }
                   points={ piece.points }
-                  key={ index }/>
+                  key={ index }
+                  selectLetter={ props.selectLetter }
+                  theme= { props.theme }/>
       )}
     </StyledShelf>
   );

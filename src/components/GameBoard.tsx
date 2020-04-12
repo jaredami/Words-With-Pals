@@ -4,7 +4,7 @@ import { MyTheme, TileTypes } from '../App';
 import Tile from './Tile';
 
 interface GameBoardProps {
-  letter: string;
+  selectedLetter: string;
   theme: MyTheme;
 }
 
@@ -40,7 +40,7 @@ function GameBoard(props: GameBoardProps) {
   gameBoard.forEach((rowArr: (TileTypes | '')[]) => {
     tiles.push(
       rowArr.map((tileType: (TileTypes | ''), index: number) =>
-        <Tile key={ index } type={ tileType } theme={ props.theme } letter={ props.letter }></Tile>
+        <Tile key={ index } type={ tileType } theme={ props.theme } letter={ props.selectedLetter }></Tile>
       )
     );
   });

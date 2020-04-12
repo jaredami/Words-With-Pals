@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ThemeProvider } from 'styled-components';
 import './App.scss';
 import GameBoard from './components/GameBoard';
@@ -25,11 +25,13 @@ const theme: MyTheme = {
 }
 
 function App() {
+  const [selectedLetter, setSelectedLetter] = useState('Z');
+
   return (
     <ThemeProvider theme={ theme }>
       <div className="App">
-        <GameBoard theme={ theme } letter="Z"/>
-        <Shelf />
+        <GameBoard theme={ theme } selectedLetter={ selectedLetter }/>
+        <Shelf selectLetter={ setSelectedLetter} />
       </div>
     </ThemeProvider>
   );

@@ -1,7 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
+import { MyTheme } from '../App';
 
-const StyledLetter = styled.div`
+interface LetterProps {
+  value: string;
+  points: number;
+  selectLetter: any;
+  theme: MyTheme;
+}
+
+const StyledLetter = styled.button`
   background: ${props => props.theme.letters};
   border-radius: 8px;
   box-shadow: inset 0px 5px 10px rgba(0, 0, 0, 0.2), 0px 5px 5px rgba(0, 0, 0, 0.5);
@@ -28,9 +36,9 @@ const StyledLetter = styled.div`
   }
 `;
 
-function Letter(props: { value: string, points: number }) {
+function Letter(props: LetterProps) {
   return (
-    <StyledLetter>
+    <StyledLetter onClick={() => props.selectLetter(props.value)}>
       { props.value }
       <span className="points">
         { props.points }
