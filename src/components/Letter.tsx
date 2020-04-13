@@ -13,19 +13,20 @@ interface LetterProps {
 }
 
 const StyledLetter: any = styled.button<LetterProps>`
-  background: ${props => props.active ? 'black' : props.theme.letters};
+  background: ${props => props.theme.letters};
   border: none;
   border-radius: 8px;
+  bottom: ${props => props.active ? '4px' : '0'};
   box-shadow: inset 0px 5px 10px rgba(0, 0, 0, 0.2), 0px 5px 5px rgba(0, 0, 0, 0.5);
   box-sizing: border-box;
-  color: ${props => props.active ? 'white' : '#4C1900'};
+  color: #4C1900;
   font-size: 3.5rem;
   font-weight: 700;
   display: flex;
 	justify-content: center;
 	align-items: center;
   position: relative;
-  transition: filter 100ms ease;
+  transition: all 100ms ease;
 
   &:hover {
     cursor: pointer;
