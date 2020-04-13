@@ -45,7 +45,6 @@ function tileClicked(
     setSelecting(false);
   } else {
     setText('');
-    setSelecting(true);
   }
 }
 

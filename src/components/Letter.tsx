@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { MyTheme } from '../App';
 
 interface LetterProps {
+  active?: boolean;
   points: number;
   setSelectedLetter: React.Dispatch<React.SetStateAction<string>>;
   selecting: boolean;
@@ -11,13 +12,13 @@ interface LetterProps {
   value: string;
 }
 
-const StyledLetter = styled.button`
-  background: ${props => props.theme.letters};
+const StyledLetter: any = styled.button<LetterProps>`
+  background: ${props => props.active ? 'black' : props.theme.letters};
   border: none;
   border-radius: 8px;
   box-shadow: inset 0px 5px 10px rgba(0, 0, 0, 0.2), 0px 5px 5px rgba(0, 0, 0, 0.5);
   box-sizing: border-box;
-  color: #4C1900;
+  color: ${props => props.active ? 'white' : '#4C1900'};
   font-size: 3.5rem;
   font-weight: 700;
   display: flex;
@@ -41,23 +42,31 @@ const StyledLetter = styled.button`
 
 // TODO: don't need selecting?
 function letterClicked(
+  active: boolean,
+  setActive: React.Dispatch<React.SetStateAction<boolean>>,
   value: string,
   setSelectedLetter: React.Dispatch<React.SetStateAction<string>>,
   selecting: boolean,
   setSelecting: React.Dispatch<React.SetStateAction<boolean>>
 ): void {
+  setActive(!active)
   setSelectedLetter(value);
   setSelecting(true);
 }
 
 function Letter(props: LetterProps) {
+  const [active, setActive] = useState(false);
+
   return (
-    <StyledLetter onClick={() => letterClicked(
-      props.value,
-      props.setSelectedLetter,
-      props.selecting,
-      props.setSelecting
-    )}>
+    <StyledLetter active={ active }
+                  onClick={() => letterClicked(
+                    active,
+                    setActive,
+                    props.value,
+                    props.setSelectedLetter,
+                    props.selecting,
+                    props.setSelecting
+                  )}>
       { props.value }
       <span className="points">
         { props.points }
