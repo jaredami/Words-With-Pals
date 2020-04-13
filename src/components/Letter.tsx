@@ -5,6 +5,8 @@ import { MyTheme } from '../App';
 interface LetterProps {
   points: number;
   setSelectedLetter: React.Dispatch<React.SetStateAction<string>>;
+  selecting: boolean;
+  setSelecting: React.Dispatch<React.SetStateAction<boolean>>;
   theme: MyTheme;
   value: string;
 }
@@ -37,13 +39,25 @@ const StyledLetter = styled.button`
   }
 `;
 
-// function letterClicked(): void {
-  
-// }
+// TODO: don't need selecting?
+function letterClicked(
+  value: string,
+  setSelectedLetter: React.Dispatch<React.SetStateAction<string>>,
+  selecting: boolean,
+  setSelecting: React.Dispatch<React.SetStateAction<boolean>>
+): void {
+  setSelectedLetter(value);
+  setSelecting(true);
+}
 
 function Letter(props: LetterProps) {
   return (
-    <StyledLetter onClick={() => props.setSelectedLetter(props.value)}>
+    <StyledLetter onClick={() => letterClicked(
+      props.value,
+      props.setSelectedLetter,
+      props.selecting,
+      props.setSelecting
+    )}>
       { props.value }
       <span className="points">
         { props.points }

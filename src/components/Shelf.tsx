@@ -41,6 +41,8 @@ function Shelf(props: ShelfProps) {
           <Letter key={ index }
                   points={ piece.points }
                   setSelectedLetter={ props.setSelectedLetter }
+                  selecting={ props.selecting }
+                  setSelecting={ props.setSelecting }
                   theme= { props.theme }
                   value={ piece.val } />
       )}

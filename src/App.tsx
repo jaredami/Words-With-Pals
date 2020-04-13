@@ -37,7 +37,7 @@ function App() {
                    theme={ theme } />
         <Shelf setSelectedLetter={ setSelectedLetter}
                selecting={ selecting }
-               setSelecting={ setSelecting } 
+               setSelecting={ setSelecting }
                theme={ theme } />
       </div>
     </ThemeProvider>
