@@ -37,7 +37,6 @@ function App() {
                    theme={ theme } />
         <Shelf selectedLetter={ selectedLetter }
                setSelectedLetter={ setSelectedLetter}
-               choosingTile={ choosingTile }
                setChoosingTile={ setChoosingTile }
                theme={ theme } />
       </div>

@@ -6,7 +6,6 @@ interface LetterProps {
   points: number;
   selectedLetter: string;
   setSelectedLetter: React.Dispatch<React.SetStateAction<string>>;
-  choosingTile: boolean;
   setChoosingTile: React.Dispatch<React.SetStateAction<boolean>>;
   theme: MyTheme;
   value: string;
