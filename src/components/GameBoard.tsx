@@ -5,6 +5,7 @@ import Tile from './Tile';
 
 interface GameBoardProps {
   selectedLetter: string;
+  setSelectedLetter: React.Dispatch<React.SetStateAction<string>>;
   choosingTile: boolean;
   setChoosingTile: React.Dispatch<React.SetStateAction<boolean>>;
   theme: MyTheme;
@@ -44,6 +45,7 @@ function GameBoard(props: GameBoardProps) {
       rowArr.map((tileType: (TileTypes | ''), index: number) =>
         <Tile key={ index }
               selectedLetter={ props.selectedLetter }
+              setSelectedLetter={ props.setSelectedLetter }
               theme={ props.theme }
               type={ tileType }
               choosingTile={ props.choosingTile }

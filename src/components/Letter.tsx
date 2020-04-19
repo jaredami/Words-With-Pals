@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { MyTheme } from '../App';
 
@@ -22,8 +22,8 @@ const StyledLetter: any = styled.button<LetterProps>`
   font-size: 3.5rem;
   font-weight: 700;
   display: flex;
-	justify-content: center;
-	align-items: center;
+  justify-content: center;
+  align-items: center;
   position: relative;
   transition: all 100ms ease;
 
