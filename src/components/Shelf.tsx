@@ -38,13 +38,14 @@ function Shelf(props: ShelfProps) {
   return (
     <StyledShelf>
       {letterPieces.map((piece: LetterPiece, index: number) =>
-          <Letter key={ index }
-                  points={ piece.points }
-                  selectedLetter={ props.selectedLetter }
-                  setSelectedLetter={ props.setSelectedLetter }
-                  setChoosingTile={ props.setChoosingTile }
-                  theme= { props.theme }
-                  value={ piece.val } />
+          <Letter
+            key={ index }
+            points={ piece.points }
+            selectedLetter={ props.selectedLetter }
+            setSelectedLetter={ props.setSelectedLetter }
+            setChoosingTile={ props.setChoosingTile }
+            theme= { props.theme }
+            value={ piece.val }/>
       )}
     </StyledShelf>
   );

@@ -55,16 +55,17 @@ function Tile(props: TileProps) {
   const [text, setText] = useState('');
   
   return (
-    <StyledTile text={ text }
-                type={ props.type }
-                theme={ props.theme }
-                onClick={() => tileClicked(
-                  props.selectedLetter,
-                  props.setSelectedLetter,
-                  setText,
-                  props.choosingTile,
-                  props.setChoosingTile
-                )}>
+    <StyledTile
+      text={ text }
+      type={ props.type }
+      theme={ props.theme }
+      onClick={() => tileClicked(
+        props.selectedLetter,
+        props.setSelectedLetter,
+        setText,
+        props.choosingTile,
+        props.setChoosingTile
+      )}>
       { text ? text : props.type }
     </StyledTile>
   );

@@ -57,14 +57,15 @@ function letterClicked(
 
 function Letter(props: LetterProps) {
   return (
-    <StyledLetter selectedLetter={ props.selectedLetter }
-                  value={ props.value }
-                  onClick={() => letterClicked(
-                    props.value,
-                    props.selectedLetter,
-                    props.setSelectedLetter,
-                    props.setChoosingTile
-                  )}>
+    <StyledLetter
+      selectedLetter={ props.selectedLetter }
+      value={ props.value }
+      onClick={() => letterClicked(
+        props.value,
+        props.selectedLetter,
+        props.setSelectedLetter,
+        props.setChoosingTile
+      )}>
       { props.value }
       <span className="points">
         { props.points }

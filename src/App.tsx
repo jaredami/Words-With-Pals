@@ -31,20 +31,20 @@ function App() {
   return (
     <ThemeProvider theme={ theme }>
       <div className="App">
-        <GameBoard selectedLetter={ selectedLetter }
-                   setSelectedLetter={ setSelectedLetter }
-                   choosingTile={ choosingTile }
-                   setChoosingTile={ setChoosingTile }
-                   theme={ theme } />
-        <Shelf selectedLetter={ selectedLetter }
-               setSelectedLetter={ setSelectedLetter}
-               setChoosingTile={ setChoosingTile }
-               theme={ theme } />
+        <GameBoard
+          selectedLetter={ selectedLetter }
+          setSelectedLetter={ setSelectedLetter }
+          choosingTile={ choosingTile }
+          setChoosingTile={ setChoosingTile }
+          theme={ theme }/>
+        <Shelf
+          selectedLetter={ selectedLetter }
+          setSelectedLetter={ setSelectedLetter}
+          setChoosingTile={ setChoosingTile }
+          theme={ theme }/>
       </div>
     </ThemeProvider>
   );
 }
 
 export default App;
-
-// TODO: Format jsx like like we do at Tangoe?

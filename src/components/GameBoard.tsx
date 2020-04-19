@@ -43,13 +43,14 @@ function GameBoard(props: GameBoardProps) {
   gameBoard.forEach((rowArr: (TileTypes | '')[]) => {
     tiles.push(
       rowArr.map((tileType: (TileTypes | ''), index: number) =>
-        <Tile key={ index }
-              selectedLetter={ props.selectedLetter }
-              setSelectedLetter={ props.setSelectedLetter }
-              theme={ props.theme }
-              type={ tileType }
-              choosingTile={ props.choosingTile }
-              setChoosingTile={ props.setChoosingTile }/>
+        <Tile
+          key={ index }
+          selectedLetter={ props.selectedLetter }
+          setSelectedLetter={ props.setSelectedLetter }
+          theme={ props.theme }
+          type={ tileType }
+          choosingTile={ props.choosingTile }
+          setChoosingTile={ props.setChoosingTile }/>
       )
     );
   });
