@@ -32,6 +32,7 @@ const StyledTile: any = styled.button<TileProps>`
   &:hover {
     cursor: pointer;
     filter: brightness(90%);
+    border-color: gray;
   }
 `
 
