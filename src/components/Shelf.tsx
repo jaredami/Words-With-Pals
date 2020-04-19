@@ -20,8 +20,8 @@ interface LetterPiece {
 
 interface ShelfProps {
   setSelectedLetter: React.Dispatch<React.SetStateAction<string>>;
-  selecting: boolean;
-  setSelecting: React.Dispatch<React.SetStateAction<boolean>>;
+  choosingTile: boolean;
+  setChoosingTile: React.Dispatch<React.SetStateAction<boolean>>;
   theme: MyTheme;
 }
 
@@ -41,8 +41,8 @@ function Shelf(props: ShelfProps) {
           <Letter key={ index }
                   points={ piece.points }
                   setSelectedLetter={ props.setSelectedLetter }
-                  selecting={ props.selecting }
-                  setSelecting={ props.setSelecting }
+                  choosingTile={ props.choosingTile }
+                  setChoosingTile={ props.setChoosingTile }
                   theme= { props.theme }
                   value={ piece.val } />
       )}

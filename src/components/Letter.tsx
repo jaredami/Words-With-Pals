@@ -6,8 +6,8 @@ interface LetterProps {
   active?: boolean;
   points: number;
   setSelectedLetter: React.Dispatch<React.SetStateAction<string>>;
-  selecting: boolean;
-  setSelecting: React.Dispatch<React.SetStateAction<boolean>>;
+  choosingTile: boolean;
+  setChoosingTile: React.Dispatch<React.SetStateAction<boolean>>;
   theme: MyTheme;
   value: string;
 }
@@ -41,18 +41,18 @@ const StyledLetter: any = styled.button<LetterProps>`
   }
 `;
 
-// TODO: don't need selecting?
+// TODO: don't need choosingTile?
 function letterClicked(
   active: boolean,
   setActive: React.Dispatch<React.SetStateAction<boolean>>,
   value: string,
   setSelectedLetter: React.Dispatch<React.SetStateAction<string>>,
-  selecting: boolean,
-  setSelecting: React.Dispatch<React.SetStateAction<boolean>>
+  choosingTile: boolean,
+  setChoosingTile: React.Dispatch<React.SetStateAction<boolean>>
 ): void {
   setActive(!active)
   setSelectedLetter(value);
-  setSelecting(!active);
+  setChoosingTile(!active);
 }
 
 function Letter(props: LetterProps) {
@@ -65,8 +65,8 @@ function Letter(props: LetterProps) {
                     setActive,
                     props.value,
                     props.setSelectedLetter,
-                    props.selecting,
-                    props.setSelecting
+                    props.choosingTile,
+                    props.setChoosingTile
                   )}>
       { props.value }
       <span className="points">

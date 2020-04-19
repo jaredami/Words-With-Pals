@@ -4,8 +4,8 @@ import { MyTheme, TileTypes } from "../App";
 
 export interface TileProps {
   selectedLetter: string;
-  selecting: boolean;
-  setSelecting: React.Dispatch<React.SetStateAction<boolean>>
+  choosingTile: boolean;
+  setChoosingTile: React.Dispatch<React.SetStateAction<boolean>>
   text?: string;
   theme: MyTheme;
   type: TileTypes | '';
@@ -37,12 +37,12 @@ const StyledTile: any = styled.button<TileProps>`
 function tileClicked(
   selectedLetter: string,
   setText: React.Dispatch<React.SetStateAction<string>>,
-  selecting: boolean,
-  setSelecting: React.Dispatch<React.SetStateAction<boolean>>
+  choosingTile: boolean,
+  setChoosingTile: React.Dispatch<React.SetStateAction<boolean>>
 ): void {
-  if (selecting && selectedLetter) {
+  if (choosingTile && selectedLetter) {
     setText(selectedLetter);
-    setSelecting(false);
+    setChoosingTile(false);
   } else {
     setText('');
   }
@@ -58,8 +58,8 @@ function Tile(props: TileProps) {
                 onClick={() => tileClicked(
                   props.selectedLetter,
                   setText,
-                  props.selecting,
-                  props.setSelecting
+                  props.choosingTile,
+                  props.setChoosingTile
                 )}>
       { text ? text : props.type }
     </StyledTile>
