@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { MyTheme } from '../App';
 
 interface LetterProps {
-  active?: boolean;
   points: number;
   selectedLetter: string;
   setSelectedLetter: React.Dispatch<React.SetStateAction<string>>;
@@ -17,7 +16,7 @@ const StyledLetter: any = styled.button<LetterProps>`
   background: ${props => props.theme.letters};
   border: none;
   border-radius: 8px;
-  bottom: ${props => props.selectedLetter === props.value ? '4px' : '0'};
+  bottom: ${props => (props.selectedLetter === props.value) ? '4px' : '0'};
   box-shadow: inset 0px 5px 10px rgba(0, 0, 0, 0.2), 0px 5px 5px rgba(0, 0, 0, 0.5);
   box-sizing: border-box;
   color: #4C1900;
@@ -42,33 +41,29 @@ const StyledLetter: any = styled.button<LetterProps>`
   }
 `;
 
-// TODO: don't need choosingTile?
 function letterClicked(
-  active: boolean,
-  setActive: React.Dispatch<React.SetStateAction<boolean>>,
   value: string,
+  selectedLetter: string,
   setSelectedLetter: React.Dispatch<React.SetStateAction<string>>,
-  choosingTile: boolean,
   setChoosingTile: React.Dispatch<React.SetStateAction<boolean>>
 ): void {
-  setActive(!active)
-  setSelectedLetter(value);
-  setChoosingTile(!active);
+  if (selectedLetter === value) {
+    setSelectedLetter('');
+    setChoosingTile(false);
+  } else {
+    setSelectedLetter(value);
+    setChoosingTile(true);
+  }
 }
 
 function Letter(props: LetterProps) {
-  const [active, setActive] = useState(false);
-
   return (
-    <StyledLetter active={ active }
-                  selectedLetter={ props.selectedLetter }
+    <StyledLetter selectedLetter={ props.selectedLetter }
                   value={ props.value }
                   onClick={() => letterClicked(
-                    active,
-                    setActive,
                     props.value,
+                    props.selectedLetter,
                     props.setSelectedLetter,
-                    props.choosingTile,
                     props.setChoosingTile
                   )}>
       { props.value }
