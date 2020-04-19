@@ -35,7 +35,8 @@ function App() {
                    choosingTile={ choosingTile }
                    setChoosingTile={ setChoosingTile }
                    theme={ theme } />
-        <Shelf setSelectedLetter={ setSelectedLetter}
+        <Shelf selectedLetter={ selectedLetter }
+               setSelectedLetter={ setSelectedLetter}
                choosingTile={ choosingTile }
                setChoosingTile={ setChoosingTile }
                theme={ theme } />

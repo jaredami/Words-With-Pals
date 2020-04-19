@@ -5,6 +5,7 @@ import { MyTheme } from '../App';
 interface LetterProps {
   active?: boolean;
   points: number;
+  selectedLetter: string;
   setSelectedLetter: React.Dispatch<React.SetStateAction<string>>;
   choosingTile: boolean;
   setChoosingTile: React.Dispatch<React.SetStateAction<boolean>>;
@@ -16,7 +17,7 @@ const StyledLetter: any = styled.button<LetterProps>`
   background: ${props => props.theme.letters};
   border: none;
   border-radius: 8px;
-  bottom: ${props => props.active ? '4px' : '0'};
+  bottom: ${props => props.selectedLetter === props.value ? '4px' : '0'};
   box-shadow: inset 0px 5px 10px rgba(0, 0, 0, 0.2), 0px 5px 5px rgba(0, 0, 0, 0.5);
   box-sizing: border-box;
   color: #4C1900;
@@ -60,6 +61,8 @@ function Letter(props: LetterProps) {
 
   return (
     <StyledLetter active={ active }
+                  selectedLetter={ props.selectedLetter }
+                  value={ props.value }
                   onClick={() => letterClicked(
                     active,
                     setActive,

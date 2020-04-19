@@ -19,6 +19,7 @@ interface LetterPiece {
 }
 
 interface ShelfProps {
+  selectedLetter: string;
   setSelectedLetter: React.Dispatch<React.SetStateAction<string>>;
   choosingTile: boolean;
   setChoosingTile: React.Dispatch<React.SetStateAction<boolean>>;
@@ -40,6 +41,7 @@ function Shelf(props: ShelfProps) {
       {letterPieces.map((piece: LetterPiece, index: number) =>
           <Letter key={ index }
                   points={ piece.points }
+                  selectedLetter={ props.selectedLetter }
                   setSelectedLetter={ props.setSelectedLetter }
                   choosingTile={ props.choosingTile }
                   setChoosingTile={ props.setChoosingTile }
