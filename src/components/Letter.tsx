@@ -52,7 +52,7 @@ function letterClicked(
 ): void {
   setActive(!active)
   setSelectedLetter(value);
-  setSelecting(true);
+  setSelecting(!active);
 }
 
 function Letter(props: LetterProps) {

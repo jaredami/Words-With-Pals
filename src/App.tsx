@@ -45,3 +45,7 @@ function App() {
 }
 
 export default App;
+
+// TODO: Pass selectedLetter to Shelf -> Letter so that when clicking a letter,
+// TODO: it only gets set to active if the selectedLetter matches the value of the letter
+// TODO: and all other letters get set to inactive if it selectedLetter does equal the value of the letter
