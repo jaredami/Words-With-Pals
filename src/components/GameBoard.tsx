@@ -4,8 +4,8 @@ import { MyTheme, TileTypes } from '../App';
 import Tile from './Tile';
 
 interface GameBoardProps {
-  selectedLetter: string;
-  setSelectedLetter: React.Dispatch<React.SetStateAction<string>>;
+  selectedLetter: { val: string, id: number };
+  setSelectedLetter: React.Dispatch<React.SetStateAction<{ val: string, id: number }>>;
   choosingTile: boolean;
   setChoosingTile: React.Dispatch<React.SetStateAction<boolean>>;
   theme: MyTheme;

@@ -4,18 +4,19 @@ import { MyTheme } from '../App';
 
 interface LetterProps {
   points: number;
-  selectedLetter: string;
-  setSelectedLetter: React.Dispatch<React.SetStateAction<string>>;
+  selectedLetter: { val: string, id: number };
+  setSelectedLetter: React.Dispatch<React.SetStateAction<{ val: string, id: number }>>;
   setChoosingTile: React.Dispatch<React.SetStateAction<boolean>>;
   theme: MyTheme;
   value: string;
+  id: number;
 }
 
 const StyledLetter: any = styled.button<LetterProps>`
   background: ${props => props.theme.letters};
   border: none;
   border-radius: 8px;
-  bottom: ${props => (props.selectedLetter === props.value) ? '4px' : '0'};
+  bottom: ${props => (props.selectedLetter.val === props.value) ? '4px' : '0'};
   box-shadow: inset 0px 5px 10px rgba(0, 0, 0, 0.2), 0px 5px 5px rgba(0, 0, 0, 0.5);
   box-sizing: border-box;
   color: #4C1900;
@@ -42,15 +43,16 @@ const StyledLetter: any = styled.button<LetterProps>`
 
 function letterClicked(
   value: string,
-  selectedLetter: string,
-  setSelectedLetter: React.Dispatch<React.SetStateAction<string>>,
+  id: number,
+  selectedLetter: { val: string, id: number },
+  setSelectedLetter: React.Dispatch<React.SetStateAction<{ val: string, id: number }>>,
   setChoosingTile: React.Dispatch<React.SetStateAction<boolean>>
 ): void {
-  if (selectedLetter === value) {
-    setSelectedLetter('');
+  if (selectedLetter.val === value) {
+    setSelectedLetter({ val: '', id: 0 });
     setChoosingTile(false);
   } else {
-    setSelectedLetter(value);
+    setSelectedLetter({ val: value, id: id });
     setChoosingTile(true);
   }
 }
@@ -62,6 +64,7 @@ function Letter(props: LetterProps) {
       value={ props.value }
       onClick={() => letterClicked(
         props.value,
+        props.id,
         props.selectedLetter,
         props.setSelectedLetter,
         props.setChoosingTile

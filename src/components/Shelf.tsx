@@ -4,23 +4,24 @@ import { MyTheme } from '../App';
 import Letter from './Letter';
 
 const letterPieces: LetterPiece[] = [
-  { val: 'A', points: 1 },
-  { val: 'B', points: 4 },
-  { val: 'C', points: 4 },
-  { val: 'D', points: 2 },
-  { val: 'E', points: 1 },
-  { val: 'F', points: 4 },
-  { val: 'G', points: 3 },
+  { val: 'A', points: 1, id: 1 },
+  { val: 'B', points: 4, id: 2 },
+  { val: 'C', points: 4, id: 3 },
+  { val: 'D', points: 2, id: 4 },
+  { val: 'E', points: 1, id: 5 },
+  { val: 'F', points: 4, id: 6 },
+  { val: 'G', points: 3, id: 7 },
 ];
 
 interface LetterPiece {
   points: number;
   val: string;
+  id: number;
 }
 
 interface ShelfProps {
-  selectedLetter: string;
-  setSelectedLetter: React.Dispatch<React.SetStateAction<string>>;
+  selectedLetter: { val: string, id: number };
+  setSelectedLetter: React.Dispatch<React.SetStateAction<{ val: string, id: number }>>;
   setChoosingTile: React.Dispatch<React.SetStateAction<boolean>>;
   theme: MyTheme;
 }
@@ -37,9 +38,10 @@ const StyledShelf = styled.div`
 function Shelf(props: ShelfProps) {
   return (
     <StyledShelf>
-      {letterPieces.map((piece: LetterPiece, index: number) =>
+      {letterPieces.map((piece: LetterPiece) =>
           <Letter
-            key={ index }
+            key={ piece.id }
+            id={piece .id }
             points={ piece.points }
             selectedLetter={ props.selectedLetter }
             setSelectedLetter={ props.setSelectedLetter }

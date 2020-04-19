@@ -25,7 +25,7 @@ const theme: MyTheme = {
 }
 
 function App() {
-  const [selectedLetter, setSelectedLetter] = useState('');
+  const [selectedLetter, setSelectedLetter] = useState({ val: '', id: 0 });
   const [choosingTile, setChoosingTile] = useState(false);
 
   return (
@@ -48,3 +48,10 @@ function App() {
 }
 
 export default App;
+
+// Every Letter should have a unique id
+// When a letter is added to the board, add the id for that letter to lettersOnBoard
+// In Shelf, only display letters which aren't included in lettersOnBoard
+
+
+// lettersOnBoard, setLettersOnBoard
