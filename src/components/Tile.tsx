@@ -5,6 +5,7 @@ import { MyTheme, TileTypes } from "../App";
 export interface TileProps {
   selectedLetter: { val: string, id: number };
   setSelectedLetter: React.Dispatch<React.SetStateAction<{ val: string, id: number }>>;
+  setLettersOnBoard: React.Dispatch<React.SetStateAction<number[]>>;
   choosingTile: boolean;
   setChoosingTile: React.Dispatch<React.SetStateAction<boolean>>;
   text?: string;
@@ -39,16 +40,19 @@ const StyledTile: any = styled.button<TileProps>`
 function tileClicked(
   selectedLetter: { val: string, id: number },
   setSelectedLetter: React.Dispatch<React.SetStateAction<{ val: string, id: number }>>,
+  setLettersOnBoard: React.Dispatch<React.SetStateAction<number[]>>,
   setText: React.Dispatch<React.SetStateAction<string>>,
   choosingTile: boolean,
   setChoosingTile: React.Dispatch<React.SetStateAction<boolean>>
 ): void {
   if (choosingTile && selectedLetter) {
     setText(selectedLetter.val);
+    setLettersOnBoard(prevArray => [...prevArray, selectedLetter.id])
     setChoosingTile(false);
     setSelectedLetter({ val: '', id: 0 });
   } else {
     setText('');
+    // TODO: need to remove letter from LettersOnBoard if Tile already has a letter
   }
 }
 
@@ -63,6 +67,7 @@ function Tile(props: TileProps) {
       onClick={() => tileClicked(
         props.selectedLetter,
         props.setSelectedLetter,
+        props.setLettersOnBoard,
         setText,
         props.choosingTile,
         props.setChoosingTile

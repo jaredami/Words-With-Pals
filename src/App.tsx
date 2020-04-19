@@ -26,6 +26,7 @@ const theme: MyTheme = {
 
 function App() {
   const [selectedLetter, setSelectedLetter] = useState({ val: '', id: 0 });
+  const [lettersOnBoard, setLettersOnBoard] = useState([0]);
   const [choosingTile, setChoosingTile] = useState(false);
 
   return (
@@ -34,6 +35,7 @@ function App() {
         <GameBoard
           selectedLetter={ selectedLetter }
           setSelectedLetter={ setSelectedLetter }
+          setLettersOnBoard={ setLettersOnBoard }
           choosingTile={ choosingTile }
           setChoosingTile={ setChoosingTile }
           theme={ theme }/>
