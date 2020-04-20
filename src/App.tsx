@@ -35,13 +35,15 @@ function App() {
         <GameBoard
           selectedLetter={ selectedLetter }
           setSelectedLetter={ setSelectedLetter }
+          lettersOnBoard={ lettersOnBoard }
           setLettersOnBoard={ setLettersOnBoard }
           choosingTile={ choosingTile }
           setChoosingTile={ setChoosingTile }
           theme={ theme }/>
         <Shelf
           selectedLetter={ selectedLetter }
-          setSelectedLetter={ setSelectedLetter}
+          setSelectedLetter={ setSelectedLetter }
+          lettersOnBoard={ lettersOnBoard }
           setChoosingTile={ setChoosingTile }
           theme={ theme }/>
       </div>
