@@ -45,6 +45,7 @@ function tileClicked(
   selectedLetter: { val: string, id: number },
   setSelectedLetter: React.Dispatch<React.SetStateAction<{ val: string, id: number }>>,
   setLettersOnBoard: React.Dispatch<React.SetStateAction<number[]>>,
+  tileLetter: { val: string, id: number },
   setTileLetter: React.Dispatch<React.SetStateAction<{ val: string, id: number }>>,
   choosingTile: boolean,
   setChoosingTile: React.Dispatch<React.SetStateAction<boolean>>
@@ -56,8 +57,7 @@ function tileClicked(
     setSelectedLetter({ val: '', id: 0 });
   } else {
     setTileLetter({ val: '', id: 0 });
-    // TODO: need to remove letter from LettersOnBoard if Tile already has a letter
-    // setLettersOnBoard(prevArray => prevArray.filter(id !== tileLetter.id));
+    setLettersOnBoard(prevArray => prevArray.filter(id => id !== tileLetter.id));
   }
 }
 
@@ -73,6 +73,7 @@ function Tile(props: TileProps) {
         props.selectedLetter,
         props.setSelectedLetter,
         props.setLettersOnBoard,
+        tileLetter,
         setTileLetter,
         props.choosingTile,
         props.setChoosingTile
