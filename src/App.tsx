@@ -14,6 +14,18 @@ export interface MyTheme {
 }
 
 const theme: MyTheme = {
+  gameBoard: '#040914',
+  letters: '#e4d3ea',
+  defaultTile: '#34405e',
+  tileTypes: {
+    TW: '#75DDDD',
+    DW: '#84c7d0',
+    TL: '#9297c4',
+    DL: '#9368b7',
+    X: '#aa3e98'
+  },
+}
+const themeLight: MyTheme = {
   gameBoard: '#ffffff',
   letters: '#fbb24e',
   defaultTile: '#eeecea',

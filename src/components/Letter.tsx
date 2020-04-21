@@ -19,7 +19,8 @@ const StyledLetter: any = styled.button<LetterProps>`
   bottom: ${props => (props.selectedLetter.val === props.value) ? '4px' : '0'};
   box-shadow: inset 0px 5px 10px rgba(0, 0, 0, 0.2), 0px 5px 5px rgba(0, 0, 0, 0.5);
   box-sizing: border-box;
-  color: #4C1900;
+  color: #040914;
+  /* color: #4C1900; */
   font-size: 3.5rem;
   font-weight: 700;
   display: flex;
