@@ -22,7 +22,7 @@ const StyledTile: any = styled.button<StyledTileProps>`
       if (props.tileLetter.val) {
         return props.theme.letters
       } else if (props.type === '') {
-        return '#eeecea'
+        return props.theme.defaultTile
       }
       return props.theme.tileTypes[props.type];
     }};

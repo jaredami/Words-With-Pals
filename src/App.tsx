@@ -9,12 +9,14 @@ export type TileTypes = 'TW' | 'DW' | 'TL' | 'DL' | 'X';
 export interface MyTheme {
   gameBoard: string;
   letters: string;
+  defaultTile: string;
   tileTypes: { [k in TileTypes]: string };
 }
 
 const theme: MyTheme = {
   gameBoard: '#ffffff',
   letters: '#fbb24e',
+  defaultTile: '#eeecea',
   tileTypes: {
     TW: '#E79F45',
     DW: '#C86058',
