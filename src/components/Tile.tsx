@@ -32,7 +32,6 @@ const StyledTile: any = styled.button<StyledTileProps>`
   box-sizing: border-box;
   color: ${(props: StyledTileProps): string => props.tileLetter.val ? 'black' : 'white'};
   font-weight: 600;
-  height: 35px;
   line-height: 30px;
   &:hover {
     cursor: pointer;

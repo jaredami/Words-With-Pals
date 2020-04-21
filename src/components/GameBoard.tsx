@@ -34,10 +34,10 @@ const gameBoard: (TileTypes | '')[][] = [
 const StyledGameBoard: any = styled.div`
   border: 4px solid ${props => props.theme.gameBoard};
   display: grid;
-  grid-template-columns: repeat(15, 35px);
-  height: 525px;
+  grid-template-columns: repeat(15, 42px);
+  height: 630px;
   margin: 0 auto;
-  width: 525px;
+  width: 630px;
 `;
 
 function GameBoard(props: GameBoardProps) {

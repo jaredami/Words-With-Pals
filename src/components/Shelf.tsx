@@ -31,9 +31,9 @@ const StyledShelf = styled.div`
   display: grid;
   grid-column-gap: 8px;
   grid-template-columns: repeat(7, 1fr);
-  height: 70px;
+  height: 90px;
   margin: 0 auto;
-  width: 525px;
+  width: 630px;
 `;
 
 function Shelf(props: ShelfProps) {
