@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ThemeProvider } from 'styled-components';
 import './App.scss';
+import Actions from './components/Actions';
 import GameBoard from './components/GameBoard';
 import Shelf from './components/Shelf';
 
@@ -60,6 +61,7 @@ function App() {
           lettersOnBoard={ lettersOnBoard }
           setChoosingTile={ setChoosingTile }
           theme={ theme }/>
+        <Actions/>
       </div>
     </ThemeProvider>
   );
