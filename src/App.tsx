@@ -26,18 +26,19 @@ const theme: MyTheme = {
     X: '#aa3e98'
   },
 }
-const themeLight: MyTheme = {
-  gameBoard: '#ffffff',
-  letters: '#fbb24e',
-  defaultTile: '#eeecea',
-  tileTypes: {
-    TW: '#E79F45',
-    DW: '#C86058',
-    TL: '#6EA055',
-    DL: '#138CCE',
-    X: '#353535'
-  },
-}
+
+// const themeLight: MyTheme = {
+//   gameBoard: '#ffffff',
+//   letters: '#fbb24e',
+//   defaultTile: '#eeecea',
+//   tileTypes: {
+//     TW: '#E79F45',
+//     DW: '#C86058',
+//     TL: '#6EA055',
+//     DL: '#138CCE',
+//     X: '#353535'
+//   },
+// }
 
 function App() {
   const [selectedLetter, setSelectedLetter] = useState({ val: '', id: 0 });
@@ -70,3 +71,8 @@ function App() {
 }
 
 export default App;
+
+// Might need to track the overall state of the game board rather than keeping track of
+// which Tiles have letters placed on them in the Tiles themselves. 
+// This will make it easier to clear the GameBoard when pressing the RECALL button, and
+// will probably be better when I start calculating points based on Tile placements.

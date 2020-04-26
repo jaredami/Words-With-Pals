@@ -1,6 +1,6 @@
 import React from 'react';
 import { IconContext } from "react-icons";
-import { FaAngleDoubleRight, FaRetweet, FaRandom, FaBars, FaUndo } from "react-icons/fa";
+import { FaAngleDoubleRight, FaBars, FaRandom, FaRetweet, FaUndo } from "react-icons/fa";
 import styled from "styled-components";
 import { MyTheme } from '../App';
 
@@ -21,6 +21,7 @@ const StyledActions = styled.div`
 `;
 
 const StyledActionButton = styled.button`
+  align-items: center;
   background: ${props => props.theme.defaultTile};
   border: none;
   border-radius: 8px;
@@ -28,7 +29,6 @@ const StyledActionButton = styled.button`
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  align-items: center;
   place-content: center;
 `;
 

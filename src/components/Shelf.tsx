@@ -50,8 +50,8 @@ function Shelf(props: ShelfProps) {
               setSelectedLetter={ props.setSelectedLetter }
               setChoosingTile={ props.setChoosingTile }
               theme= { props.theme }
-              value={ piece.val }/>
-      )}
+              value={ piece.val }/>)
+      }
     </StyledShelf>
   );
 }

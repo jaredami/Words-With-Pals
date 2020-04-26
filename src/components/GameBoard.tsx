@@ -43,20 +43,18 @@ const StyledGameBoard: any = styled.div`
 function GameBoard(props: GameBoardProps) {
   let tiles: JSX.Element[][] = [];
   gameBoard.forEach((rowArr: (TileTypes | '')[]) => {
-    tiles.push(
-      rowArr.map((tileType: (TileTypes | ''), index: number) =>
-        <Tile
-          key={ index }
-          selectedLetter={ props.selectedLetter }
-          setSelectedLetter={ props.setSelectedLetter }
-          setLettersOnBoard={ props.setLettersOnBoard }
-          lettersOnBoard={ props.lettersOnBoard }
-          theme={ props.theme }
-          type={ tileType }
-          choosingTile={ props.choosingTile }
-          setChoosingTile={ props.setChoosingTile }/>
-      )
-    );
+    tiles.push(rowArr.map((tileType: (TileTypes | ''), index: number) =>
+      <Tile
+        key={ index }
+        selectedLetter={ props.selectedLetter }
+        setSelectedLetter={ props.setSelectedLetter }
+        setLettersOnBoard={ props.setLettersOnBoard }
+        lettersOnBoard={ props.lettersOnBoard }
+        theme={ props.theme }
+        type={ tileType }
+        choosingTile={ props.choosingTile }
+        setChoosingTile={ props.setChoosingTile }/>
+    ));
   });
 
   return (
