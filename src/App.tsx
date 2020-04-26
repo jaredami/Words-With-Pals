@@ -61,17 +61,12 @@ function App() {
           lettersOnBoard={ lettersOnBoard }
           setChoosingTile={ setChoosingTile }
           theme={ theme }/>
-        <Actions/>
+        <Actions
+          lettersOnBoard={ lettersOnBoard }
+          theme={ theme }/>
       </div>
     </ThemeProvider>
   );
 }
 
 export default App;
-
-// Every Letter should have a unique id
-// When a letter is added to the board, add the id for that letter to lettersOnBoard
-// In Shelf, only display letters which aren't included in lettersOnBoard
-
-
-// lettersOnBoard, setLettersOnBoard
