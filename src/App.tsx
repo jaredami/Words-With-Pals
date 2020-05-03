@@ -62,18 +62,16 @@ const boardInit: (TileTypes | '')[][] = [
 const boardInitFull: any = boardInit.map((row, rowIndex) => {
   return row.map((tileText, tileIndex) => ({ val: tileText, id: `${rowIndex}-${tileIndex}` }))
 });
-console.log('boardInitFull', boardInitFull);
 
 
 function App() {
-  const [gameBoard, setGameBoard] = useState(boardInitFull);
+  const [gameBoard, setGameBoard] = useState(JSON.parse(JSON.stringify(boardInitFull)));
   const [selectedLetter, setSelectedLetter] = useState({ val: '', id: 0 });
   const [lettersOnBoard, setLettersOnBoard] = useState([0]);
   const [choosingTile, setChoosingTile] = useState(false);
 
   function clearBoard(): void {
-    console.log('boardInit', boardInit);
-    setGameBoard(boardInit);
+    setGameBoard(JSON.parse(JSON.stringify(boardInitFull)));
     setLettersOnBoard([0]);
   }
 
@@ -82,6 +80,7 @@ function App() {
       <div className="App">
         <GameBoard
           gameBoard={ gameBoard }
+          setGameBoard={ setGameBoard }
           selectedLetter={ selectedLetter }
           setSelectedLetter={ setSelectedLetter }
           lettersOnBoard={ lettersOnBoard }

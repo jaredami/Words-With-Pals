@@ -6,6 +6,7 @@ import Tile from './Tile';
 interface GameBoardProps {
   // gameBoard: (TileTypes | '')[][];
   gameBoard: { val: string, id: string }[][];
+  setGameBoard: any;
   selectedLetter: { val: string, id: number };
   setSelectedLetter: React.Dispatch<React.SetStateAction<{ val: string, id: number }>>;
   lettersOnBoard: number[];
@@ -49,6 +50,8 @@ function GameBoard(props: GameBoardProps) {
       <Tile
         id={ tile.id }
         key={ tile.id }
+        gameBoard={ props.gameBoard }
+        setGameBoard={ props.setGameBoard }
         selectedLetter={ props.selectedLetter }
         setSelectedLetter={ props.setSelectedLetter }
         setLettersOnBoard={ props.setLettersOnBoard }

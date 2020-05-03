@@ -4,6 +4,8 @@ import { MyTheme, TileTypes } from "../App";
 
 export interface TileProps {
   id: string;
+  gameBoard: any;
+  setGameBoard: any;
   selectedLetter: { val: string, id: number };
   setSelectedLetter: React.Dispatch<React.SetStateAction<{ val: string, id: number }>>;
   lettersOnBoard: number[];
@@ -42,22 +44,42 @@ const StyledTile: any = styled.button<StyledTileProps>`
 `;
 
 function tileClicked(
+  id: string,
+  gameboard: any,
+  setGameBoard: any,
   selectedLetter: { val: string, id: number },
   setSelectedLetter: React.Dispatch<React.SetStateAction<{ val: string, id: number }>>,
   setLettersOnBoard: React.Dispatch<React.SetStateAction<number[]>>,
-  tileLetter: { val: string, id: number },
-  setTileLetter: React.Dispatch<React.SetStateAction<{ val: string, id: number }>>,
   choosingTile: boolean,
   setChoosingTile: React.Dispatch<React.SetStateAction<boolean>>
 ): void {
+  let tileToUpdate: [number, number];
+  gameboard.forEach((row: any, rowIndex: number) => {
+    row.forEach((tile: any, tileIndex: number) => {
+      if (tile.id === id) {
+        tileToUpdate = [rowIndex, tileIndex];
+      }
+    });
+  });
+
   if (choosingTile && selectedLetter) {
-    setTileLetter({ val: selectedLetter.val, id: selectedLetter.id });
+    setGameBoard((prevBoard: any) => {
+      prevBoard[tileToUpdate[0]][tileToUpdate[1]].val = selectedLetter.val;
+      return prevBoard;
+    });
+
     setLettersOnBoard(prevArray => [...prevArray, selectedLetter.id])
     setChoosingTile(false);
     setSelectedLetter({ val: '', id: 0 });
   } else {
-    setTileLetter({ val: '', id: 0 });
-    setLettersOnBoard(prevArray => prevArray.filter(id => id !== tileLetter.id));
+    // setTileLetter({ val: '', id: 0 });
+    // setLettersOnBoard(prevArray => prevArray.filter(id => id !== tileLetter.id));
+    console.log('yo');
+    setGameBoard((prevBoard: any) => {
+      prevBoard[tileToUpdate[0]][tileToUpdate[1]].val = '';
+      console.log('prevBoard', prevBoard);
+      return prevBoard;
+    });
   }
 }
 
@@ -70,11 +92,12 @@ function Tile(props: TileProps) {
       type={ props.type }
       theme={ props.theme }
       onClick={() => tileClicked(
+        props.id,
+        props.gameBoard,
+        props.setGameBoard,
         props.selectedLetter,
         props.setSelectedLetter,
         props.setLettersOnBoard,
-        tileLetter,
-        setTileLetter,
         props.choosingTile,
         props.setChoosingTile
       )}>
