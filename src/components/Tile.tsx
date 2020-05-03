@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { MyTheme, TileTypes } from "../App";
 
 export interface TileProps {
+  id: string;
   selectedLetter: { val: string, id: number };
   setSelectedLetter: React.Dispatch<React.SetStateAction<{ val: string, id: number }>>;
   lettersOnBoard: number[];
@@ -10,7 +11,7 @@ export interface TileProps {
   choosingTile: boolean;
   setChoosingTile: React.Dispatch<React.SetStateAction<boolean>>;
   theme: MyTheme;
-  type: TileTypes | '';
+  type: string;
 }
 
 interface StyledTileProps extends TileProps {
