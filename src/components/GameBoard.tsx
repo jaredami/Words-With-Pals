@@ -45,8 +45,8 @@ const StyledGameBoard: any = styled.div`
 
 function GameBoard(props: GameBoardProps) {
   let tiles: JSX.Element[][] = [];
-  props.gameBoard.forEach((rowArr: { val: string, id: string }[]) => {
-    tiles.push(rowArr.map((tile: { val: string, id: string }) =>
+  props.gameBoard.forEach((rowArr: any) => {
+    tiles.push(rowArr.map((tile: any) =>
       <Tile
         id={ tile.id }
         key={ tile.id }

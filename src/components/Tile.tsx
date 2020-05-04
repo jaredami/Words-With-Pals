@@ -13,7 +13,7 @@ export interface TileProps {
   choosingTile: boolean;
   setChoosingTile: React.Dispatch<React.SetStateAction<boolean>>;
   theme: MyTheme;
-  type: string;
+  type: { text: string, id: number };
 }
 
 interface StyledTileProps extends TileProps {
@@ -24,10 +24,10 @@ const StyledTile: any = styled.button<StyledTileProps>`
   background: ${(props: StyledTileProps): string => {
       if (props.tileLetter.val) {
         return props.theme.letters
-      } else if (props.type === '') {
+      } else if (props.type.text === '') {
         return props.theme.defaultTile
       }
-      return props.theme.tileTypes[props.type];
+      return props.theme.tileTypes[props.type.text];
     }};
   border: 2px solid ${props => props.theme.gameBoard};
   border-radius: 6px;
@@ -51,7 +51,8 @@ function tileClicked(
   setSelectedLetter: React.Dispatch<React.SetStateAction<{ val: string, id: number }>>,
   setLettersOnBoard: React.Dispatch<React.SetStateAction<number[]>>,
   choosingTile: boolean,
-  setChoosingTile: React.Dispatch<React.SetStateAction<boolean>>
+  setChoosingTile: React.Dispatch<React.SetStateAction<boolean>>,
+  type: any
 ): void {
   let tileToUpdate: [number, number];
   gameboard.forEach((row: any, rowIndex: number) => {
@@ -64,7 +65,7 @@ function tileClicked(
 
   if (choosingTile && selectedLetter) {
     setGameBoard((prevBoard: any) => {
-      prevBoard[tileToUpdate[0]][tileToUpdate[1]].val = selectedLetter.val;
+      prevBoard[tileToUpdate[0]][tileToUpdate[1]].val = { text: selectedLetter.val, letterId: selectedLetter.id };
       return prevBoard;
     });
 
@@ -72,12 +73,10 @@ function tileClicked(
     setChoosingTile(false);
     setSelectedLetter({ val: '', id: 0 });
   } else {
-    // setTileLetter({ val: '', id: 0 });
-    // setLettersOnBoard(prevArray => prevArray.filter(id => id !== tileLetter.id));
-    console.log('yo');
+    setLettersOnBoard(prevArray => prevArray.filter(id => id !== type.letterId));
+
     setGameBoard((prevBoard: any) => {
-      prevBoard[tileToUpdate[0]][tileToUpdate[1]].val = '';
-      console.log('prevBoard', prevBoard);
+      prevBoard[tileToUpdate[0]][tileToUpdate[1]].val = { text: '', id: undefined };
       return prevBoard;
     });
   }
@@ -99,9 +98,10 @@ function Tile(props: TileProps) {
         props.setSelectedLetter,
         props.setLettersOnBoard,
         props.choosingTile,
-        props.setChoosingTile
+        props.setChoosingTile,
+        props.type
       )}>
-      { tileLetter.val ? tileLetter.val : props.type }
+      { props.type.text }
     </StyledTile>
   );
 }

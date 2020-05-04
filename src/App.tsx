@@ -60,7 +60,15 @@ const boardInit: (TileTypes | '')[][] = [
 ];
 
 const boardInitFull: any = boardInit.map((row, rowIndex) => {
-  return row.map((tileText, tileIndex) => ({ val: tileText, id: `${rowIndex}-${tileIndex}` }))
+  return row.map((tileText, tileIndex) => (
+    {
+      val: {
+        text: tileText,
+        letterId: undefined
+      },
+      id: `${rowIndex}-${tileIndex}`
+    }
+  ));
 });
 
 
