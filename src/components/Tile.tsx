@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { MyTheme, TileTypes } from "../App";
+import { MyTheme } from "../App";
 
 export interface TileProps {
   id: string;
@@ -13,16 +13,12 @@ export interface TileProps {
   choosingTile: boolean;
   setChoosingTile: React.Dispatch<React.SetStateAction<boolean>>;
   theme: MyTheme;
-  type: { text: string, id: number };
+  type: { text: string, letterId: number };
 }
 
-interface StyledTileProps extends TileProps {
-  tileLetter: { val: string, id: number };
-}
-
-const StyledTile: any = styled.button<StyledTileProps>`
-  background: ${(props: StyledTileProps): string => {
-      if (props.tileLetter.val) {
+const StyledTile: any = styled.button<TileProps>`
+  background: ${(props: TileProps): string => {
+      if (props.type.letterId) {
         return props.theme.letters
       } else if (props.type.text === '') {
         return props.theme.defaultTile
@@ -83,11 +79,8 @@ function tileClicked(
 }
 
 function Tile(props: TileProps) {
-  const [tileLetter, setTileLetter] = useState({ val: '', id: 0 });
-  
   return (
     <StyledTile
-      tileLetter={ tileLetter }
       type={ props.type }
       theme={ props.theme }
       onClick={() => tileClicked(
