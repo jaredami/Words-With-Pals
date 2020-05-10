@@ -33,10 +33,6 @@ const StyledActionButton = styled.button`
   place-content: center;
 `;
 
-function recall(): void {
-  console.log('recall');
-}
-
 function shuffle(): void {
   console.log('shuffle');
 }

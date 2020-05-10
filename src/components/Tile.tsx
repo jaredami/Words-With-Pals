@@ -48,6 +48,7 @@ function tileClicked(
   setChoosingTile: React.Dispatch<React.SetStateAction<boolean>>,
   tileClicked: BoardTile
 ): void {
+  // Store the row and tile index of the tile that was clicked
   let tileToUpdate: [number, number];
   gameboard.forEach((row: BoardTile[], rowIndex: number) => {
     row.forEach((tile: BoardTile, tileIndex: number) => {
@@ -57,6 +58,7 @@ function tileClicked(
     });
   });
 
+  // If placing a letter on an empty tile, add it to the GameBoard
   if (choosingTile && selectedLetter) {
     setGameBoard((prevBoard: BoardTile[][]) => {
       prevBoard[tileToUpdate[0]][tileToUpdate[1]].val = { text: selectedLetter.val, letterId: selectedLetter.id };
@@ -69,6 +71,7 @@ function tileClicked(
   } else {
     const letterId = tileClicked.val.letterId;
 
+    // If tile has a letter on it already, remove it from the board
     if (letterId) {
       setLettersOnBoard(prevArray => {
         return prevArray.filter(id => id !== letterId);
