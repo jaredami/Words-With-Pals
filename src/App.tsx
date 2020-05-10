@@ -6,7 +6,6 @@ import GameBoard from './components/GameBoard';
 import Shelf from './components/Shelf';
 
 export type TileTypes = string;
-// export type TileTypes = 'TW' | 'DW' | 'TL' | 'DL' | 'X';
 
 export interface BoardTile {
   val: {
@@ -104,7 +103,6 @@ function App() {
           choosingTile={ choosingTile }
           setChoosingTile={ setChoosingTile }
           theme={ theme }/>
-        <button onClick={clearBoard}>TEST</button>
         <Shelf
           selectedLetter={ selectedLetter }
           setSelectedLetter={ setSelectedLetter }
@@ -113,7 +111,8 @@ function App() {
           theme={ theme }/>
         <Actions
           lettersOnBoard={ lettersOnBoard }
-          theme={ theme }/>
+          theme={ theme }
+          clearBoard={ clearBoard }/>
       </div>
     </ThemeProvider>
   );

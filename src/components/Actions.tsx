@@ -7,6 +7,7 @@ import { MyTheme } from '../App';
 interface ActionsProps {
   lettersOnBoard: number[];
   theme: MyTheme;
+  clearBoard: () => void;
 }
 
 const StyledActions = styled.div`
@@ -66,7 +67,7 @@ function Actions(props: ActionsProps) {
       </StyledActionButton>
       <StyledActionButton
         theme={ props.theme }
-        onClick={ props.lettersOnBoard.length > 1 ? recall : shuffle }>
+        onClick={ props.lettersOnBoard.length > 1 ? props.clearBoard : shuffle }>
         <IconContext.Provider value={{ style: { fontSize: '2.5rem', color: "white" }}}>
           { props.lettersOnBoard.length > 1 ? <FaUndo /> : <FaRandom /> }
         </IconContext.Provider>
