@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { MyTheme, TileTypes } from '../App';
+import { BoardTile, MyTheme } from '../App';
 import Tile from './Tile';
 
 interface GameBoardProps {
   // gameBoard: (TileTypes | '')[][];
-  gameBoard: { val: string, id: string }[][];
-  setGameBoard: any;
+  gameBoard: BoardTile[][];
+  setGameBoard: React.Dispatch<React.SetStateAction<BoardTile[][]>>;
   selectedLetter: { val: string, id: number };
   setSelectedLetter: React.Dispatch<React.SetStateAction<{ val: string, id: number }>>;
   lettersOnBoard: number[];
@@ -45,11 +45,10 @@ const StyledGameBoard: any = styled.div`
 
 function GameBoard(props: GameBoardProps) {
   let tiles: JSX.Element[][] = [];
-  props.gameBoard.forEach((rowArr: any) => {
-    tiles.push(rowArr.map((tile: any) =>
+  props.gameBoard.forEach((row: BoardTile[]) => {
+    tiles.push(row.map((tile: BoardTile) =>
       <Tile
-        id={ tile.id }
-        key={ tile.id }
+        key={ tile.tileId }
         gameBoard={ props.gameBoard }
         setGameBoard={ props.setGameBoard }
         selectedLetter={ props.selectedLetter }
@@ -57,7 +56,7 @@ function GameBoard(props: GameBoardProps) {
         setLettersOnBoard={ props.setLettersOnBoard }
         lettersOnBoard={ props.lettersOnBoard }
         theme={ props.theme }
-        type={ tile.val }
+        tile={ tile }
         choosingTile={ props.choosingTile }
         setChoosingTile={ props.setChoosingTile }/>
     ));

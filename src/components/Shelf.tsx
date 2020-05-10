@@ -4,19 +4,19 @@ import { MyTheme } from '../App';
 import Letter from './Letter';
 
 const letterPieces: LetterPiece[] = [
-  { val: 'A', points: 1, id: 1 },
-  { val: 'B', points: 4, id: 2 },
-  { val: 'C', points: 4, id: 3 },
-  { val: 'D', points: 2, id: 4 },
-  { val: 'E', points: 1, id: 5 },
-  { val: 'F', points: 4, id: 6 },
-  { val: 'G', points: 3, id: 7 },
+  { val: 'A', points: 1, letterId: 1 },
+  { val: 'B', points: 4, letterId: 2 },
+  { val: 'C', points: 4, letterId: 3 },
+  { val: 'D', points: 2, letterId: 4 },
+  { val: 'E', points: 1, letterId: 5 },
+  { val: 'F', points: 4, letterId: 6 },
+  { val: 'G', points: 3, letterId: 7 },
 ];
 
 interface LetterPiece {
   points: number;
   val: string;
-  id: number;
+  letterId: number;
 }
 
 interface ShelfProps {
@@ -40,11 +40,11 @@ function Shelf(props: ShelfProps) {
   return (
     <StyledShelf>
       {letterPieces
-        .filter(piece => !props.lettersOnBoard.includes(piece.id))
+        .filter(piece => !props.lettersOnBoard.includes(piece.letterId))
         .map((piece: LetterPiece) =>
             <Letter
-              key={ piece.id }
-              id={ piece.id }
+              key={ piece.letterId }
+              id={ piece.letterId }
               points={ piece.points }
               selectedLetter={ props.selectedLetter }
               setSelectedLetter={ props.setSelectedLetter }

@@ -1,11 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import { MyTheme } from "../App";
+import { MyTheme, BoardTile } from "../App";
 
 export interface TileProps {
-  id: string;
-  gameBoard: any;
-  setGameBoard: any;
+  gameBoard: BoardTile[][];
+  setGameBoard: React.Dispatch<React.SetStateAction<BoardTile[][]>>;
   selectedLetter: { val: string, id: number };
   setSelectedLetter: React.Dispatch<React.SetStateAction<{ val: string, id: number }>>;
   lettersOnBoard: number[];
@@ -13,17 +12,17 @@ export interface TileProps {
   choosingTile: boolean;
   setChoosingTile: React.Dispatch<React.SetStateAction<boolean>>;
   theme: MyTheme;
-  type: { text: string, letterId: number };
+  tile: BoardTile;
 }
 
 const StyledTile: any = styled.button<TileProps>`
   background: ${(props: TileProps): string => {
-      if (props.type.letterId) {
+      if (props.tile.val.letterId) {
         return props.theme.letters
-      } else if (props.type.text === '') {
+      } else if (props.tile.val.text === '') {
         return props.theme.defaultTile
       }
-      return props.theme.tileTypes[props.type.text];
+      return props.theme.tileTypes[props.tile.val.text];
     }};
   border: 2px solid ${props => props.theme.gameBoard};
   border-radius: 6px;
@@ -40,27 +39,26 @@ const StyledTile: any = styled.button<TileProps>`
 `;
 
 function tileClicked(
-  id: string,
-  gameboard: any,
-  setGameBoard: any,
+  gameboard: BoardTile[][],
+  setGameBoard: React.Dispatch<React.SetStateAction<BoardTile[][]>>,
   selectedLetter: { val: string, id: number },
   setSelectedLetter: React.Dispatch<React.SetStateAction<{ val: string, id: number }>>,
   setLettersOnBoard: React.Dispatch<React.SetStateAction<number[]>>,
   choosingTile: boolean,
   setChoosingTile: React.Dispatch<React.SetStateAction<boolean>>,
-  type: any
+  tileClicked: BoardTile
 ): void {
   let tileToUpdate: [number, number];
-  gameboard.forEach((row: any, rowIndex: number) => {
-    row.forEach((tile: any, tileIndex: number) => {
-      if (tile.id === id) {
+  gameboard.forEach((row: BoardTile[], rowIndex: number) => {
+    row.forEach((tile: BoardTile, tileIndex: number) => {
+      if (tile.tileId === tileClicked.tileId) {
         tileToUpdate = [rowIndex, tileIndex];
       }
     });
   });
 
   if (choosingTile && selectedLetter) {
-    setGameBoard((prevBoard: any) => {
+    setGameBoard((prevBoard: BoardTile[][]) => {
       prevBoard[tileToUpdate[0]][tileToUpdate[1]].val = { text: selectedLetter.val, letterId: selectedLetter.id };
       return prevBoard;
     });
@@ -69,22 +67,27 @@ function tileClicked(
     setChoosingTile(false);
     setSelectedLetter({ val: '', id: 0 });
   } else {
-    setLettersOnBoard(prevArray => prevArray.filter(id => id !== type.letterId));
+    const letterId = tileClicked.val.letterId;
 
-    setGameBoard((prevBoard: any) => {
-      prevBoard[tileToUpdate[0]][tileToUpdate[1]].val = { text: '', id: undefined };
-      return prevBoard;
-    });
+    if (letterId) {
+      setLettersOnBoard(prevArray => {
+        return prevArray.filter(id => id !== letterId);
+      });
+
+      setGameBoard((prevBoard: BoardTile[][]) => {
+        prevBoard[tileToUpdate[0]][tileToUpdate[1]].val = { text: '' };
+        return prevBoard;
+      });
+    }
   }
 }
 
 function Tile(props: TileProps) {
   return (
     <StyledTile
-      type={ props.type }
+      tile={ props.tile }
       theme={ props.theme }
       onClick={() => tileClicked(
-        props.id,
         props.gameBoard,
         props.setGameBoard,
         props.selectedLetter,
@@ -92,9 +95,9 @@ function Tile(props: TileProps) {
         props.setLettersOnBoard,
         props.choosingTile,
         props.setChoosingTile,
-        props.type
+        props.tile
       )}>
-      { props.type.text }
+      { props.tile.val.text }
     </StyledTile>
   );
 }

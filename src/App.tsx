@@ -8,6 +8,14 @@ import Shelf from './components/Shelf';
 export type TileTypes = string;
 // export type TileTypes = 'TW' | 'DW' | 'TL' | 'DL' | 'X';
 
+export interface BoardTile {
+  val: {
+    text: string;
+    letterId?: number;
+  },
+  tileId: string
+}
+
 export interface MyTheme {
   gameBoard: string;
   letters: string;
@@ -59,14 +67,14 @@ const boardInit: (TileTypes | '')[][] = [
   ['', '', '', 'TW', '', '', 'TL', '', 'TL', '', '', 'TW', '', '', ''],
 ];
 
-const boardInitFull: any = boardInit.map((row, rowIndex) => {
+const boardInitFull: BoardTile[][] = boardInit.map((row, rowIndex) => {
   return row.map((tileText, tileIndex) => (
     {
       val: {
         text: tileText,
         letterId: undefined
       },
-      id: `${rowIndex}-${tileIndex}`
+      tileId: `${rowIndex}-${tileIndex}`
     }
   ));
 });
