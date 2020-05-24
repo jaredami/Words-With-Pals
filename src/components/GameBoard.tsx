@@ -7,9 +7,9 @@ interface GameBoardProps {
   // gameBoard: (TileTypes | '')[][];
   gameBoard: BoardTile[][];
   setGameBoard: React.Dispatch<React.SetStateAction<BoardTile[][]>>;
-  selectedLetter: { val: string, id: number };
-  setSelectedLetter: React.Dispatch<React.SetStateAction<{ val: string, id: number }>>;
-  lettersOnBoard: number[];
+  selectedLetter: { val: string, id: number, points: number };
+  setSelectedLetter: React.Dispatch<React.SetStateAction<{ val: string, id: number, points: number }>>;
+  lettersOnBoardIds: number[];
   setLettersOnBoard: React.Dispatch<React.SetStateAction<number[]>>;
   choosingTile: boolean;
   setChoosingTile: React.Dispatch<React.SetStateAction<boolean>>;
@@ -54,7 +54,7 @@ function GameBoard(props: GameBoardProps) {
         selectedLetter={ props.selectedLetter }
         setSelectedLetter={ props.setSelectedLetter }
         setLettersOnBoard={ props.setLettersOnBoard }
-        lettersOnBoard={ props.lettersOnBoard }
+        lettersOnBoardIds={ props.lettersOnBoardIds }
         theme={ props.theme }
         tile={ tile }
         choosingTile={ props.choosingTile }

@@ -5,9 +5,9 @@ import { MyTheme, BoardTile } from "../App";
 export interface TileProps {
   gameBoard: BoardTile[][];
   setGameBoard: React.Dispatch<React.SetStateAction<BoardTile[][]>>;
-  selectedLetter: { val: string, id: number };
-  setSelectedLetter: React.Dispatch<React.SetStateAction<{ val: string, id: number }>>;
-  lettersOnBoard: number[];
+  selectedLetter: { val: string, id: number, points: number };
+  setSelectedLetter: React.Dispatch<React.SetStateAction<{ val: string, id: number, points: number }>>;
+  lettersOnBoardIds: number[];
   setLettersOnBoard: React.Dispatch<React.SetStateAction<number[]>>;
   choosingTile: boolean;
   setChoosingTile: React.Dispatch<React.SetStateAction<boolean>>;
@@ -41,8 +41,8 @@ const StyledTile: any = styled.button<TileProps>`
 function tileClicked(
   gameboard: BoardTile[][],
   setGameBoard: React.Dispatch<React.SetStateAction<BoardTile[][]>>,
-  selectedLetter: { val: string, id: number },
-  setSelectedLetter: React.Dispatch<React.SetStateAction<{ val: string, id: number }>>,
+  selectedLetter: { val: string, id: number, points: number },
+  setSelectedLetter: React.Dispatch<React.SetStateAction<{ val: string, id: number, points: number }>>,
   setLettersOnBoard: React.Dispatch<React.SetStateAction<number[]>>,
   choosingTile: boolean,
   setChoosingTile: React.Dispatch<React.SetStateAction<boolean>>,
@@ -61,13 +61,17 @@ function tileClicked(
   // If placing a letter on an empty tile, add it to the GameBoard
   if (choosingTile && selectedLetter) {
     setGameBoard((prevBoard: BoardTile[][]) => {
-      prevBoard[tileToUpdate[0]][tileToUpdate[1]].val = { text: selectedLetter.val, letterId: selectedLetter.id };
+      prevBoard[tileToUpdate[0]][tileToUpdate[1]].val = {
+        text: selectedLetter.val,
+        letterId: selectedLetter.id,
+        points: selectedLetter.points
+      };
       return prevBoard;
     });
 
     setLettersOnBoard(prevArray => [...prevArray, selectedLetter.id])
     setChoosingTile(false);
-    setSelectedLetter({ val: '', id: 0 });
+    setSelectedLetter({ val: '', id: 0, points: 0 });
   } else {
     const letterId = tileClicked.val.letterId;
 

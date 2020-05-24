@@ -11,6 +11,7 @@ export interface BoardTile {
   val: {
     text: string;
     letterId?: number;
+    points?: number;
   },
   tileId: string
 }
@@ -81,8 +82,8 @@ const boardInitFull: BoardTile[][] = boardInit.map((row, rowIndex) => {
 
 function App() {
   const [gameBoard, setGameBoard] = useState(JSON.parse(JSON.stringify(boardInitFull)));
-  const [selectedLetter, setSelectedLetter] = useState({ val: '', id: 0 });
-  const [lettersOnBoard, setLettersOnBoard] = useState([0]);
+  const [selectedLetter, setSelectedLetter] = useState({ val: '', id: 0, points: 0 });
+  const [lettersOnBoardIds, setLettersOnBoard] = useState([0]);
   const [choosingTile, setChoosingTile] = useState(false);
 
   function clearBoard(): void {
@@ -98,7 +99,7 @@ function App() {
           setGameBoard={ setGameBoard }
           selectedLetter={ selectedLetter }
           setSelectedLetter={ setSelectedLetter }
-          lettersOnBoard={ lettersOnBoard }
+          lettersOnBoardIds={ lettersOnBoardIds }
           setLettersOnBoard={ setLettersOnBoard }
           choosingTile={ choosingTile }
           setChoosingTile={ setChoosingTile }
@@ -106,11 +107,11 @@ function App() {
         <Shelf
           selectedLetter={ selectedLetter }
           setSelectedLetter={ setSelectedLetter }
-          lettersOnBoard={ lettersOnBoard }
+          lettersOnBoardIds={ lettersOnBoardIds }
           setChoosingTile={ setChoosingTile }
           theme={ theme }/>
         <Actions
-          lettersOnBoard={ lettersOnBoard }
+          lettersOnBoardIds={ lettersOnBoardIds }
           theme={ theme }
           clearBoard={ clearBoard }/>
       </div>
@@ -119,26 +120,3 @@ function App() {
 }
 
 export default App;
-
-// Might need to track the overall state of the game board rather than keeping track of
-// which Tiles have letters placed on them in the Tiles themselves. 
-// This will make it easier to clear the GameBoard when pressing the RECALL button, and
-// will probably be better when I start calculating points based on Tile placements.
-
-// const boardInit: (TileTypes | { val: '', id: ''})[][] = [
-//   [{ val: '', id: ''}, { val: '', id: ''}, { val: '', id: ''}, 'TW', { val: '', id: ''}, { val: '', id: ''}, { val: 'TL', id: ''}, { val: '', id: ''}, { val: 'TL', id: ''}, { val: '', id: ''}, { val: '', id: ''}, 'TW', { val: '', id: ''}, { val: '', id: ''}, { val: '', id: ''}],
-//   [{ val: '', id: ''}, { val: '', id: ''}, { val: 'DL', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: 'DW', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: 'DW', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: 'DL', id: ''}, { val: '', id: ''}, { val: '', id: ''}],
-//   [{ val: '', id: ''}, { val: 'DL', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: 'DL', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: 'DL', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: 'DL', id: ''}, { val: '', id: ''}],
-//   ['TW', { val: '', id: ''}, { val: '', id: ''}, { val: 'TL', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: 'DW', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: 'TL', id: ''}, { val: '', id: ''}, { val: '', id: ''}, 'TW'],
-//   [{ val: '', id: ''}, { val: '', id: ''}, { val: 'DL', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: 'DL', id: ''}, { val: '', id: ''}, { val: 'DL', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: 'DL', id: ''}, { val: '', id: ''}, { val: '', id: ''}],
-//   [{ val: '', id: ''}, { val: 'DW', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: 'TL', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: 'TL', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: 'DW', id: ''}, { val: '', id: ''}],
-//   [{ val: 'TL', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: 'DL', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: 'DL', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: 'TL', id: ''}],
-//   [{ val: '', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: 'DW', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: '', id: ''}, 'X', { val: '', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: 'DW', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: '', id: ''}],
-//   [{ val: 'TL', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: 'DL', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: 'DL', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: 'TL', id: ''}],
-//   [{ val: '', id: ''}, { val: 'DW', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: 'TL', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: 'TL', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: 'DW', id: ''}, { val: '', id: ''}],
-//   [{ val: '', id: ''}, { val: '', id: ''}, { val: 'DL', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: 'DL', id: ''}, { val: '', id: ''}, { val: 'DL', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: 'DL', id: ''}, { val: '', id: ''}, { val: '', id: ''}],
-//   ['TW', { val: '', id: ''}, { val: '', id: ''}, { val: 'TL', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: 'DW', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: 'TL', id: ''}, { val: '', id: ''}, { val: '', id: ''}, 'TW'],
-//   [{ val: '', id: ''}, { val: 'DL', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: 'DL', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: 'DL', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: 'DL', id: ''}, { val: '', id: ''}],
-//   [{ val: '', id: ''}, { val: '', id: ''}, { val: 'DL', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: 'DW', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: 'DW', id: ''}, { val: '', id: ''}, { val: '', id: ''}, { val: 'DL', id: ''}, { val: '', id: ''}, { val: '', id: ''}],
-//   [{ val: '', id: ''}, { val: '', id: ''}, { val: '', id: ''}, 'TW', { val: '', id: ''}, { val: '', id: ''}, { val: 'TL', id: ''}, { val: '', id: ''}, { val: 'TL', id: ''}, { val: '', id: ''}, { val: '', id: ''}, 'TW', { val: '', id: ''}, { val: '', id: ''}, { val: '', id: ''}],
-// ];

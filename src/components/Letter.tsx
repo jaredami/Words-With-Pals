@@ -4,8 +4,8 @@ import { MyTheme } from '../App';
 
 interface LetterProps {
   points: number;
-  selectedLetter: { val: string, id: number };
-  setSelectedLetter: React.Dispatch<React.SetStateAction<{ val: string, id: number }>>;
+  selectedLetter: { val: string, id: number, points: number };
+  setSelectedLetter: React.Dispatch<React.SetStateAction<{ val: string, id: number, points: number }>>;
   setChoosingTile: React.Dispatch<React.SetStateAction<boolean>>;
   theme: MyTheme;
   value: string;
@@ -45,15 +45,16 @@ const StyledLetter: any = styled.button<LetterProps>`
 function letterClicked(
   value: string,
   id: number,
-  selectedLetter: { val: string, id: number },
-  setSelectedLetter: React.Dispatch<React.SetStateAction<{ val: string, id: number }>>,
+  points: number,
+  selectedLetter: { val: string, id: number, points: number },
+  setSelectedLetter: React.Dispatch<React.SetStateAction<{ val: string, id: number, points: number }>>,
   setChoosingTile: React.Dispatch<React.SetStateAction<boolean>>
 ): void {
   if (selectedLetter.val === value) {
-    setSelectedLetter({ val: '', id: 0 });
+    setSelectedLetter({ val: '', id: 0, points: 0 });
     setChoosingTile(false);
   } else {
-    setSelectedLetter({ val: value, id: id });
+    setSelectedLetter({ val: value, id: id, points: points });
     setChoosingTile(true);
   }
 }
@@ -66,6 +67,7 @@ function Letter(props: LetterProps) {
       onClick={() => letterClicked(
         props.value,
         props.id,
+        props.points,
         props.selectedLetter,
         props.setSelectedLetter,
         props.setChoosingTile

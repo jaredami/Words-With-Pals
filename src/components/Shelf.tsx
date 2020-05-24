@@ -20,9 +20,9 @@ interface LetterPiece {
 }
 
 interface ShelfProps {
-  selectedLetter: { val: string, id: number };
-  setSelectedLetter: React.Dispatch<React.SetStateAction<{ val: string, id: number }>>;
-  lettersOnBoard: number[];
+  selectedLetter: { val: string, id: number, points: number };
+  setSelectedLetter: React.Dispatch<React.SetStateAction<{ val: string, id: number, points: number }>>;
+  lettersOnBoardIds: number[];
   setChoosingTile: React.Dispatch<React.SetStateAction<boolean>>;
   theme: MyTheme;
 }
@@ -40,7 +40,7 @@ function Shelf(props: ShelfProps) {
   return (
     <StyledShelf>
       {letterPieces
-        .filter(piece => !props.lettersOnBoard.includes(piece.letterId))
+        .filter(piece => !props.lettersOnBoardIds.includes(piece.letterId))
         .map((piece: LetterPiece) =>
             <Letter
               key={ piece.letterId }
