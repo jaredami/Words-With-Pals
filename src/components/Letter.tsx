@@ -37,8 +37,8 @@ const StyledLetter: any = styled.button<LetterProps>`
   .points {
     font-size: 0.8rem;
     position: absolute;
-    top: 5%;
     right: 10%;
+    top: 5%;
   }
 `;
 

@@ -31,10 +31,18 @@ const StyledTile: any = styled.button<TileProps>`
   color: #040914;
   font-weight: 600;
   line-height: 30px;
+  position: relative;
 
   &:hover {
     cursor: pointer;
     filter: brightness(150%);
+  }
+
+  .points {
+    font-size: 0.4rem;
+    position: absolute;
+    right: 10%;
+    top: -20%;
   }
 `;
 
@@ -105,6 +113,9 @@ function Tile(props: TileProps) {
         props.tile
       )}>
       { props.tile.val.text }
+      <span className="points">
+        { props.tile.val.points }
+      </span>
     </StyledTile>
   );
 }
