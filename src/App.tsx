@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ThemeProvider } from 'styled-components';
 import './App.scss';
 import Actions from './components/Actions';
@@ -81,10 +81,24 @@ const boardInitFull: BoardTile[][] = boardInit.map((row, rowIndex) => {
 
 
 function App() {
-  const [gameBoard, setGameBoard] = useState(JSON.parse(JSON.stringify(boardInitFull)));
+  const [gameBoard, setGameBoard] = useState(() => JSON.parse(JSON.stringify(boardInitFull)));
   const [selectedLetter, setSelectedLetter] = useState({ val: '', id: 0, points: 0 });
   const [lettersOnBoardIds, setLettersOnBoard] = useState([0]);
   const [choosingTile, setChoosingTile] = useState(false);
+
+  useEffect(() => {
+    calculatePoints(gameBoard);
+  });
+
+  function calculatePoints(gameBoard: BoardTile[][]) {
+    let points = 0;
+    gameBoard.forEach(row => row.forEach(tile => {
+      if (tile.val.points) {
+        points = points + tile.val.points;
+      }
+    }));
+    console.log('points', points);
+  }
 
   function clearBoard(): void {
     setGameBoard(JSON.parse(JSON.stringify(boardInitFull)));

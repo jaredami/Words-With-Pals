@@ -47,7 +47,7 @@ const StyledTile: any = styled.button<TileProps>`
 `;
 
 function tileClicked(
-  gameboard: BoardTile[][],
+  gameBoard: BoardTile[][],
   setGameBoard: React.Dispatch<React.SetStateAction<BoardTile[][]>>,
   selectedLetter: { val: string, id: number, points: number },
   setSelectedLetter: React.Dispatch<React.SetStateAction<{ val: string, id: number, points: number }>>,
@@ -58,7 +58,7 @@ function tileClicked(
 ): void {
   // Store the row and tile index of the tile that was clicked
   let tileToUpdate: [number, number];
-  gameboard.forEach((row: BoardTile[], rowIndex: number) => {
+  gameBoard.forEach((row: BoardTile[], rowIndex: number) => {
     row.forEach((tile: BoardTile, tileIndex: number) => {
       if (tile.tileId === tileClicked.tileId) {
         tileToUpdate = [rowIndex, tileIndex];
