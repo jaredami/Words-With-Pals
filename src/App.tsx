@@ -90,14 +90,51 @@ function App() {
     calculatePoints(gameBoard);
   });
 
+  let points: number = 0;
+  const letterIdsInRow = [0];
   function calculatePoints(gameBoard: BoardTile[][]) {
-    let points = 0;
-    gameBoard.forEach(row => row.forEach(tile => {
-      if (tile.val.points) {
-        points = points + tile.val.points;
+
+    gameBoard.forEach((row, rowIndex) => row.forEach((tile, tileIndex) => {
+      // If the current tile has a letter placed on it...
+      if (tile.val.letterId && tile.val.points) {
+        const tileLeft = gameBoard[rowIndex][tileIndex - 1];
+        const tileAbove = gameBoard[rowIndex - 1][tileIndex];
+
+        // If there is no letter directly to the left or above, this could be the start of a word
+        if (!tileLeft.val.points && !tileAbove.val.points) {
+          points = points + tile.val.points;
+          letterIdsInRow.push(tile.val.letterId);
+
+          checkNextTileRight(rowIndex, tileIndex);
+          checkNextTileBelow(rowIndex, tileIndex);
+        } else {
+
+        }
+        console.log('letterIdsInRow', letterIdsInRow);
       }
     }));
     console.log('points', points);
+    console.log('lettersOnBoardIds', lettersOnBoardIds);
+  }
+
+  // Recursively add up the points for all adjacent letters to the right.
+  function checkNextTileRight(rowIndex: number, tileIndex: number) {
+    const tileRight = gameBoard[rowIndex][tileIndex + 1];
+
+    if (tileRight.val.points) {
+      points = points + tileRight.val.points;
+      checkNextTileRight(rowIndex, tileIndex + 1);
+    }
+  }
+
+  // Recursively add up the points for all adjacent letters below.
+  function checkNextTileBelow(rowIndex: number, tileIndex: number) {
+    const tileBelow = gameBoard[rowIndex + 1][tileIndex];
+
+    if (tileBelow.val.points) {
+      points = points + tileBelow.val.points;
+      checkNextTileRight(rowIndex + 1, tileIndex);
+    }
   }
 
   function clearBoard(): void {
