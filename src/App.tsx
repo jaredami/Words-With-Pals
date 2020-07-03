@@ -4,6 +4,7 @@ import './App.scss';
 import Actions from './components/Actions';
 import GameBoard from './components/GameBoard';
 import Shelf from './components/Shelf';
+import { title } from 'process';
 
 export type TileTypes = string;
 
@@ -79,9 +80,25 @@ const boardInitFull: BoardTile[][] = boardInit.map((row, rowIndex) => {
   ));
 });
 
+export interface ShelfLetter {
+  points: number;
+  val: string;
+  letterId: number;
+}
+
+const shelfLettersInit: ShelfLetter[] = [
+  { val: 'A', points: 1, letterId: 1 },
+  { val: 'B', points: 4, letterId: 2 },
+  { val: 'C', points: 4, letterId: 3 },
+  { val: 'D', points: 2, letterId: 4 },
+  { val: 'E', points: 1, letterId: 5 },
+  { val: 'F', points: 4, letterId: 6 },
+  { val: 'G', points: 3, letterId: 7 },
+];
 
 function App() {
   const [gameBoard, setGameBoard] = useState(() => JSON.parse(JSON.stringify(boardInitFull)));
+  const [shelfLetters, setShelfLetters] = useState(shelfLettersInit);
   const [selectedLetter, setSelectedLetter] = useState({ val: '', id: 0, points: 0 });
   const [lettersOnBoardIds, setLettersOnBoard] = useState([0]);
   const [choosingTile, setChoosingTile] = useState(false);
@@ -90,51 +107,45 @@ function App() {
     calculatePoints(gameBoard);
   });
 
-  let points: number = 0;
-  const letterIdsInRow = [0];
   function calculatePoints(gameBoard: BoardTile[][]) {
-
-    gameBoard.forEach((row, rowIndex) => row.forEach((tile, tileIndex) => {
-      // If the current tile has a letter placed on it...
+    const lettersOnBoardIndexes: number[][] = [];
+    
+    // get indexes for all letters on board from shelf
+    // (search board for tile with id from lettersOnBoardIds (&& shelf?))
+    gameBoard.forEach((row: BoardTile[], rowIndex: number) => row.forEach((tile: BoardTile, tileIndex: number) => {
       if (tile.val.letterId && tile.val.points) {
-        const tileLeft = gameBoard[rowIndex][tileIndex - 1];
-        const tileAbove = gameBoard[rowIndex - 1][tileIndex];
-
-        // If there is no letter directly to the left or above, this could be the start of a word
-        if (!tileLeft.val.points && !tileAbove.val.points) {
-          points = points + tile.val.points;
-          letterIdsInRow.push(tile.val.letterId);
-
-          checkNextTileRight(rowIndex, tileIndex);
-          checkNextTileBelow(rowIndex, tileIndex);
-        } else {
-
-        }
-        console.log('letterIdsInRow', letterIdsInRow);
+        if (lettersOnBoardIds.includes(tile.val.letterId)) {
+          console.log('tile', tile);
+          // TODO: add check that letter is from shelf?
+          // lettersOnBoardIndexes.push(tile.tileId);
+          lettersOnBoardIndexes.push([rowIndex, tileIndex]);
+        };
       }
     }));
-    console.log('points', points);
-    console.log('lettersOnBoardIds', lettersOnBoardIds);
+
+    console.log('lettersOnBoardIndexes', lettersOnBoardIndexes);
+    allCurrentLettersInStraightLine(lettersOnBoardIndexes);
+    allLettersInSameWord(lettersOnBoardIndexes);
+  };
+
+  // Returns true if all letters are in a straight line
+  function allCurrentLettersInStraightLine(lettersOnBoardIndexes: number[][]): boolean {
+    const yes = lettersOnBoardIndexes.every(arr => {
+      return arr[0] === lettersOnBoardIndexes[0][0] || arr[1] === lettersOnBoardIndexes[0][1]
+    });
+    console.log('yes', yes);
+    return yes;
   }
 
-  // Recursively add up the points for all adjacent letters to the right.
-  function checkNextTileRight(rowIndex: number, tileIndex: number) {
-    const tileRight = gameBoard[rowIndex][tileIndex + 1];
+  // Returns true if all letters in same word
+  function allLettersInSameWord(lettersOnBoardIndexes: number[][]): void {
+    // Separate out each word
+    // Check if all of the ids that are included in shelfLetters are in the same word
 
-    if (tileRight.val.points) {
-      points = points + tileRight.val.points;
-      checkNextTileRight(rowIndex, tileIndex + 1);
-    }
-  }
-
-  // Recursively add up the points for all adjacent letters below.
-  function checkNextTileBelow(rowIndex: number, tileIndex: number) {
-    const tileBelow = gameBoard[rowIndex + 1][tileIndex];
-
-    if (tileBelow.val.points) {
-      points = points + tileBelow.val.points;
-      checkNextTileRight(rowIndex + 1, tileIndex);
-    }
+    const words = lettersOnBoardIndexes.map(indexArr => {
+      const tile = gameBoard[indexArr[0]][indexArr[1]];
+      console.log('tile', tile);
+    })
   }
 
   function clearBoard(): void {
@@ -159,6 +170,7 @@ function App() {
           selectedLetter={ selectedLetter }
           setSelectedLetter={ setSelectedLetter }
           lettersOnBoardIds={ lettersOnBoardIds }
+          shelfLetters={ shelfLetters }
           setChoosingTile={ setChoosingTile }
           theme={ theme }/>
         <Actions
