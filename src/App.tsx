@@ -143,7 +143,9 @@ function App() {
 
   // Returns true if all letters in same word
   function allLettersInSameWord(lettersOnBoardIndexes: number[][]): void {
-    // Separate out each word
+    const columnWords: BoardTile[][] = getAllWordsInColumn(lettersOnBoardIndexes);
+    console.log('columnWords', columnWords);
+
     // Check if all of the ids that are included in shelfLetters are in the same word
 
     // const words = lettersOnBoardIndexes.map(indexArr => {
@@ -152,12 +154,23 @@ function App() {
     // })
     // console.log('words', words);
 
-    // If next previous greater, concat to word
-    // if not, push word into array and reset word
+
+
+    // Returns true if all letters in column are consecutive
+    // const yes: boolean = lettersOnBoardIndexes.every((arr, arrIndex) => {
+    //   if (arrIndex > 0) {
+    //     return arr[0] === lettersOnBoardIndexes[arrIndex - 1][0];
+    //   }
+    //   return true;
+    // });
+    // console.log('yes', yes);
+  }
+
+  function getAllWordsInColumn(lettersOnBoardIndexes: number[][]): BoardTile[][] {
     let word: BoardTile[] = lettersOnBoardIndexes.length ?
       [gameBoard[lettersOnBoardIndexes[0][0]][lettersOnBoardIndexes[0][1]]] :
       [];
-    const wordsArr = [];
+    const wordsArr: BoardTile[][] = [];
 
     for (let i = 0; i < lettersOnBoardIndexes.length; i++) {
       
@@ -168,30 +181,24 @@ function App() {
           word.push(tile);
         // If not add word to wordsArr and start new word with this tile.
         } else {
-          wordsArr.push(word);
+          // But only add to wordsArr if word is more than one letter long
+          if (word.length > 1) {
+            wordsArr.push(word);
+          }
           word = [gameBoard[lettersOnBoardIndexes[i][0]][lettersOnBoardIndexes[i][1]]];
         }
 
         // If this is the last tile in the column, go ahead and add word to wordsArr
         if (i === (lettersOnBoardIndexes.length - 1)) {
-          // But only if it word is more than one letter long
+          // But only if word is more than one letter long
           if (word.length > 1) {
             wordsArr.push(word);
           }
         }
       }
-      console.log('word', word);
-      console.log('wordsArr', wordsArr);
     }
 
-    // Returns true if all letters in column are consecutive
-    // const yes: boolean = lettersOnBoardIndexes.every((arr, arrIndex) => {
-    //   if (arrIndex > 0) {
-    //     return arr[0] === lettersOnBoardIndexes[arrIndex - 1][0];
-    //   }
-    //   return true;
-    // });
-    // console.log('yes', yes);
+    return wordsArr;
   }
 
   function clearBoard(): void {
