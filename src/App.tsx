@@ -115,37 +115,73 @@ function App() {
     gameBoard.forEach((row: BoardTile[], rowIndex: number) => row.forEach((tile: BoardTile, tileIndex: number) => {
       if (tile.val.letterId && tile.val.points) {
         if (lettersOnBoardIds.includes(tile.val.letterId)) {
-          console.log('tile', tile);
           // TODO: add check that letter is from shelf?
-          // lettersOnBoardIndexes.push(tile.tileId);
           lettersOnBoardIndexes.push([rowIndex, tileIndex]);
         };
       }
     }));
 
-    console.log('lettersOnBoardIndexes', lettersOnBoardIndexes);
-    allCurrentLettersInStraightLine(lettersOnBoardIndexes);
-    allLettersInSameWord(lettersOnBoardIndexes);
+    if (allCurrentLettersInStraightLine(lettersOnBoardIndexes)) {
+      allLettersInSameWord(lettersOnBoardIndexes);
+    }
   };
 
   // Returns true if all letters are in a straight line
   function allCurrentLettersInStraightLine(lettersOnBoardIndexes: number[][]): boolean {
-    const yes = lettersOnBoardIndexes.every(arr => {
-      return arr[0] === lettersOnBoardIndexes[0][0] || arr[1] === lettersOnBoardIndexes[0][1]
+    const allInRowOrColumn: boolean = lettersOnBoardIndexes.every(arr => {
+      return arr[0] === lettersOnBoardIndexes[0][0]
+    }) || lettersOnBoardIndexes.every(arr => {
+      return arr[1] === lettersOnBoardIndexes[0][1];
     });
-    console.log('yes', yes);
-    return yes;
+
+    return allInRowOrColumn;
   }
+
+  // function allInSameRow(): boolean {
+
+  // }
 
   // Returns true if all letters in same word
   function allLettersInSameWord(lettersOnBoardIndexes: number[][]): void {
     // Separate out each word
     // Check if all of the ids that are included in shelfLetters are in the same word
 
-    const words = lettersOnBoardIndexes.map(indexArr => {
-      const tile = gameBoard[indexArr[0]][indexArr[1]];
-      console.log('tile', tile);
-    })
+    // const words = lettersOnBoardIndexes.map(indexArr => {
+    //   const tile = gameBoard[indexArr[0]][indexArr[1]];
+    //   return tile;
+    // })
+    // console.log('words', words);
+
+    // If next previous greater, concat to word
+    // if not, push word into array and reset word
+    let word: string = lettersOnBoardIndexes.length ?
+      gameBoard[lettersOnBoardIndexes[0][0]][lettersOnBoardIndexes[0][1]].val.text : 
+      '';
+    const wordsArr = [];
+
+    for (let i = 0; i < lettersOnBoardIndexes.length; i++) {
+      
+      if (i > 0) {
+        if (lettersOnBoardIndexes[i][0] === (lettersOnBoardIndexes[i - 1][0] + 1)) {
+          const letter: string = gameBoard[lettersOnBoardIndexes[i][0]][lettersOnBoardIndexes[i][1]].val.text;
+          word = word.concat(letter);
+        } else {
+          wordsArr.push(word);
+          word = gameBoard[lettersOnBoardIndexes[i][0]][lettersOnBoardIndexes[i][1]].val.text;
+        }
+      }
+      console.log('word', word);
+      console.log('wordsArr', wordsArr);
+    }
+
+    // Returns true if all letters in column are consecutive
+    // const yes: boolean = lettersOnBoardIndexes.every((arr, arrIndex) => {
+    //   if (arrIndex > 0) {
+    //     return arr[0] === lettersOnBoardIndexes[arrIndex - 1][0];
+    //   }
+    //   return true;
+    // });
+    // console.log('yes', yes);
   }
 
   function clearBoard(): void {
