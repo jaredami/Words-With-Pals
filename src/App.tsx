@@ -154,20 +154,30 @@ function App() {
 
     // If next previous greater, concat to word
     // if not, push word into array and reset word
-    let word: string = lettersOnBoardIndexes.length ?
-      gameBoard[lettersOnBoardIndexes[0][0]][lettersOnBoardIndexes[0][1]].val.text : 
-      '';
+    let word: BoardTile[] = lettersOnBoardIndexes.length ?
+      [gameBoard[lettersOnBoardIndexes[0][0]][lettersOnBoardIndexes[0][1]]] :
+      [];
     const wordsArr = [];
 
     for (let i = 0; i < lettersOnBoardIndexes.length; i++) {
       
       if (i > 0) {
+        // If tile has letter directly above it, add it to word
         if (lettersOnBoardIndexes[i][0] === (lettersOnBoardIndexes[i - 1][0] + 1)) {
-          const letter: string = gameBoard[lettersOnBoardIndexes[i][0]][lettersOnBoardIndexes[i][1]].val.text;
-          word = word.concat(letter);
+          const tile: BoardTile = gameBoard[lettersOnBoardIndexes[i][0]][lettersOnBoardIndexes[i][1]];
+          word.push(tile);
+        // If not add word to wordsArr and start new word with this tile.
         } else {
           wordsArr.push(word);
-          word = gameBoard[lettersOnBoardIndexes[i][0]][lettersOnBoardIndexes[i][1]].val.text;
+          word = [gameBoard[lettersOnBoardIndexes[i][0]][lettersOnBoardIndexes[i][1]]];
+        }
+
+        // If this is the last tile in the column, go ahead and add word to wordsArr
+        if (i === (lettersOnBoardIndexes.length - 1)) {
+          // But only if it word is more than one letter long
+          if (word.length > 1) {
+            wordsArr.push(word);
+          }
         }
       }
       console.log('word', word);
