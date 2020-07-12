@@ -122,7 +122,14 @@ function App() {
     }));
 
     if (allCurrentLettersInStraightLine(lettersOnBoardIndexes)) {
-      allLettersInSameWord(lettersOnBoardIndexes);
+      if (allCurrentLettersInSameWord(lettersOnBoardIndexes)) {
+        // ! Problem: not always first item in this array - need to get word with shelf letters
+        const points = getAllWordsInColumn(lettersOnBoardIndexes)[0]
+          .reduce((a,b) => { 
+            return b.val.points ? a + b.val.points : 0;
+          }, 0);
+        console.log('points', points);
+      };
     }
   };
 
@@ -141,29 +148,30 @@ function App() {
 
   // }
 
-  // Returns true if all letters in same word
-  function allLettersInSameWord(lettersOnBoardIndexes: number[][]): void {
+  // Returns true if all of the ids that are included in shelfLetters are in the same word
+  function allCurrentLettersInSameWord(lettersOnBoardIndexes: number[][]): boolean {
     const columnWords: BoardTile[][] = getAllWordsInColumn(lettersOnBoardIndexes);
-    console.log('columnWords', columnWords);
 
-    // Check if all of the ids that are included in shelfLetters are in the same word
+    // Create array of letterIds from shelfLetters
+    const shelfIds: any = shelfLetters.map(letter => letter.letterId);
 
-    // const words = lettersOnBoardIndexes.map(indexArr => {
-    //   const tile = gameBoard[indexArr[0]][indexArr[1]];
-    //   return tile;
-    // })
-    // console.log('words', words);
+    // Create array or arrays of letterIds for each word in columnWords
+    const wordsIds: any = [];
+    for (let i = 0; i < columnWords.length; i++) {
+      wordsIds[i] = [];
+      columnWords[i].forEach((letter: BoardTile) => {
+        wordsIds[i].push(letter.val.letterId);
+      });
+    }
 
+    let columnWordsWithLetterFromShelf: number = 0;
+    wordsIds.forEach((arr: number[]) => {
+      if (arr.some((id: number) => shelfIds.includes(id))) {
+        columnWordsWithLetterFromShelf++;
+      }
+    });
 
-
-    // Returns true if all letters in column are consecutive
-    // const yes: boolean = lettersOnBoardIndexes.every((arr, arrIndex) => {
-    //   if (arrIndex > 0) {
-    //     return arr[0] === lettersOnBoardIndexes[arrIndex - 1][0];
-    //   }
-    //   return true;
-    // });
-    // console.log('yes', yes);
+    return columnWordsWithLetterFromShelf === 1;
   }
 
   function getAllWordsInColumn(lettersOnBoardIndexes: number[][]): BoardTile[][] {
