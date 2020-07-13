@@ -153,25 +153,18 @@ function App() {
     const columnWords: BoardTile[][] = getAllWordsInColumn(lettersOnBoardIndexes);
 
     // Create array of letterIds from shelfLetters
-    const shelfIds: any = shelfLetters.map(letter => letter.letterId);
+    const shelfIds: any[] = shelfLetters.map(letter => letter.letterId);
 
-    // Create array or arrays of letterIds for each word in columnWords
-    const wordsIds: any = [];
-    for (let i = 0; i < columnWords.length; i++) {
-      wordsIds[i] = [];
-      columnWords[i].forEach((letter: BoardTile) => {
-        wordsIds[i].push(letter.val.letterId);
-      });
-    }
-
-    let columnWordsWithLetterFromShelf: number = 0;
-    wordsIds.forEach((arr: number[]) => {
-      if (arr.some((id: number) => shelfIds.includes(id))) {
-        columnWordsWithLetterFromShelf++;
+    // Get number of words that have a letter from the shelf in them
+    let wordsWithLetterFromShelfCount: number = 0;
+    getLetterIdsForWords(columnWords).forEach((arr: BoardTile['val']['letterId'][]) => {
+      if (arr.some((id: BoardTile['val']['letterId']) => shelfIds.includes(id))) {
+        wordsWithLetterFromShelfCount++;
       }
     });
 
-    return columnWordsWithLetterFromShelf === 1;
+    // Return true if there is only one word in the column with letters from the shelf
+    return wordsWithLetterFromShelfCount === 1;
   }
 
   function getAllWordsInColumn(lettersOnBoardIndexes: number[][]): BoardTile[][] {
@@ -207,6 +200,19 @@ function App() {
     }
 
     return wordsArr;
+  }
+
+  function getLetterIdsForWords(columnWords: BoardTile[][]): BoardTile['val']['letterId'][][] {
+    const wordsIds: BoardTile['val']['letterId'][][] = [];
+
+    for (let i = 0; i < columnWords.length; i++) {
+      wordsIds[i] = [];
+      columnWords[i].forEach((letter: BoardTile) => {
+        wordsIds[i].push(letter.val.letterId);
+      });
+    }
+
+    return wordsIds;
   }
 
   function clearBoard(): void {

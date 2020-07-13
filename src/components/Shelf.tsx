@@ -3,22 +3,6 @@ import styled from 'styled-components';
 import { MyTheme, ShelfLetter } from '../App';
 import Letter from './Letter';
 
-// const letterPieces: LetterPiece[] = [
-//   { val: 'A', points: 1, letterId: 1 },
-//   { val: 'B', points: 4, letterId: 2 },
-//   { val: 'C', points: 4, letterId: 3 },
-//   { val: 'D', points: 2, letterId: 4 },
-//   { val: 'E', points: 1, letterId: 5 },
-//   { val: 'F', points: 4, letterId: 6 },
-//   { val: 'G', points: 3, letterId: 7 },
-// ];
-
-// interface LetterPiece {
-//   points: number;
-//   val: string;
-//   letterId: number;
-// }
-
 interface ShelfProps {
   selectedLetter: { val: string, id: number, points: number };
   setSelectedLetter: React.Dispatch<React.SetStateAction<{ val: string, id: number, points: number }>>;
