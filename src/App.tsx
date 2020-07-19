@@ -110,8 +110,7 @@ function App() {
   function calculatePoints(gameBoard: BoardTile[][]) {
     const lettersOnBoardIndexes: number[][] = [];
     
-    // get indexes for all letters on board from shelf
-    // (search board for tile with id from lettersOnBoardIds (&& shelf?))
+    // Get indexes for all letters on board from shelf.
     gameBoard.forEach((row: BoardTile[], rowIndex: number) => row.forEach((tile: BoardTile, tileIndex: number) => {
       if (tile.val.letterId && tile.val.points) {
         if (lettersOnBoardIds.includes(tile.val.letterId)) {
@@ -121,7 +120,7 @@ function App() {
       }
     }));
 
-    if (allCurrentLettersInStraightLine(lettersOnBoardIndexes)) {
+    if (allLettersFromShelfInStraightLine(lettersOnBoardIndexes)) {
       if (allCurrentLettersInSameWord(lettersOnBoardIndexes)) {
         // ! Problem: not always first item in this array - need to get word with shelf letters
         const points = getAllWordsInColumn(lettersOnBoardIndexes)[0]
@@ -133,8 +132,8 @@ function App() {
     }
   };
 
-  // Returns true if all letters are in a straight line
-  function allCurrentLettersInStraightLine(lettersOnBoardIndexes: number[][]): boolean {
+  // Returns true if all letters are in a straight line.
+  function allLettersFromShelfInStraightLine(lettersOnBoardIndexes: number[][]): boolean {
     const allInRowOrColumn: boolean = lettersOnBoardIndexes.every(arr => {
       return arr[0] === lettersOnBoardIndexes[0][0]
     }) || lettersOnBoardIndexes.every(arr => {
@@ -148,14 +147,14 @@ function App() {
 
   // }
 
-  // Returns true if all of the ids that are included in shelfLetters are in the same word
+  // Returns true if all of the ids that are included in shelfLetters are in the same word.
   function allCurrentLettersInSameWord(lettersOnBoardIndexes: number[][]): boolean {
     const columnWords: BoardTile[][] = getAllWordsInColumn(lettersOnBoardIndexes);
 
-    // Create array of letterIds from shelfLetters
+    // Create array of letterIds from shelfLetters.
     const shelfIds: any[] = shelfLetters.map(letter => letter.letterId);
 
-    // Get number of words that have a letter from the shelf in them
+    // Get number of words that have a letter from the shelf in them.
     let wordsWithLetterFromShelfCount: number = 0;
     getLetterIdsForWords(columnWords).forEach((arr: BoardTile['val']['letterId'][]) => {
       if (arr.some((id: BoardTile['val']['letterId']) => shelfIds.includes(id))) {
@@ -163,7 +162,6 @@ function App() {
       }
     });
 
-    // Return true if there is only one word in the column with letters from the shelf
     return wordsWithLetterFromShelfCount === 1;
   }
 
@@ -176,22 +174,22 @@ function App() {
     for (let i = 0; i < lettersOnBoardIndexes.length; i++) {
       
       if (i > 0) {
-        // If tile has letter directly above it, add it to word
+        // If tile has letter directly above it, add it to word.
         if (lettersOnBoardIndexes[i][0] === (lettersOnBoardIndexes[i - 1][0] + 1)) {
           const tile: BoardTile = gameBoard[lettersOnBoardIndexes[i][0]][lettersOnBoardIndexes[i][1]];
           word.push(tile);
-        // If not add word to wordsArr and start new word with this tile.
+        // If not, add word to wordsArr and start new word with this tile.
         } else {
-          // But only add to wordsArr if word is more than one letter long
+          // But only add to wordsArr if word is more than one letter long.
           if (word.length > 1) {
             wordsArr.push(word);
           }
           word = [gameBoard[lettersOnBoardIndexes[i][0]][lettersOnBoardIndexes[i][1]]];
         }
 
-        // If this is the last tile in the column, go ahead and add word to wordsArr
+        // If this is the last tile in the column, go ahead and add word to wordsArr.
         if (i === (lettersOnBoardIndexes.length - 1)) {
-          // But only if word is more than one letter long
+          // But only if word is more than one letter long.
           if (word.length > 1) {
             wordsArr.push(word);
           }
@@ -202,12 +200,12 @@ function App() {
     return wordsArr;
   }
 
-  function getLetterIdsForWords(columnWords: BoardTile[][]): BoardTile['val']['letterId'][][] {
+  function getLetterIdsForWords(wordsArr: BoardTile[][]): BoardTile['val']['letterId'][][] {
     const wordsIds: BoardTile['val']['letterId'][][] = [];
 
-    for (let i = 0; i < columnWords.length; i++) {
+    for (let i = 0; i < wordsArr.length; i++) {
       wordsIds[i] = [];
-      columnWords[i].forEach((letter: BoardTile) => {
+      wordsArr[i].forEach((letter: BoardTile) => {
         wordsIds[i].push(letter.val.letterId);
       });
     }
