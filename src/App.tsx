@@ -128,7 +128,11 @@ function App() {
             return b.val.points ? a + b.val.points : 0;
           }, 0);
         console.log('points', points);
-      };
+      } else {
+        console.log('Can only play one word at a time!');
+      }
+    } else {
+      console.log('Tiles must be in a straight line!');
     }
   };
 
@@ -210,6 +214,7 @@ function App() {
       });
     }
 
+    console.log('wordsIds', wordsIds);
     return wordsIds;
   }
 
