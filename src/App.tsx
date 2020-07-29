@@ -122,11 +122,15 @@ function App() {
 
     if (allLettersFromShelfInStraightLine(lettersOnBoardIndexes)) {
       if (allCurrentLettersInSameWord(lettersOnBoardIndexes)) {
-        // ! Problem: not always first item in this array - need to get word with shelf letters
-        const points = getAllWordsInColumn(lettersOnBoardIndexes)[0]
-          .reduce((a,b) => { 
-            return b.val.points ? a + b.val.points : 0;
-          }, 0);
+        const points = getAllWordsInColumn(lettersOnBoardIndexes)
+          .filter(word => {
+            return word.some(letter => getLetterIdsForShelf().indexOf(letter.val.letterId as number) >= 0)
+          })[0]
+          .map(letter => letter.val.points)
+          .reduce((prev, cur: any) => {
+            return prev + cur
+          }, 0)
+
         console.log('points', points);
       } else {
         console.log('Can only play one word at a time!');
@@ -216,6 +220,10 @@ function App() {
 
     console.log('wordsIds', wordsIds);
     return wordsIds;
+  }
+
+  function getLetterIdsForShelf(): ShelfLetter['letterId'][] {
+    return shelfLetters.map(letter => letter.letterId);
   }
 
   function clearBoard(): void {
