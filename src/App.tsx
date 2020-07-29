@@ -123,13 +123,13 @@ function App() {
     if (allLettersFromShelfInStraightLine(lettersOnBoardIndexes)) {
       if (allCurrentLettersInSameWord(lettersOnBoardIndexes)) {
         const points = getAllWordsInColumn(lettersOnBoardIndexes)
-          .filter(word => {
+          .filter((word: BoardTile[]) => {
             return word.some(letter => getLetterIdsForShelf().indexOf(letter.val.letterId as number) >= 0)
           })[0]
-          .map(letter => letter.val.points)
-          .reduce((prev, cur: any) => {
+          .map((letter: BoardTile) => letter.val.points as number)
+          .reduce((prev: number, cur: number) => {
             return prev + cur
-          }, 0)
+          }, 0);
 
         console.log('points', points);
       } else {
